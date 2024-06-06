@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;
+  }
+}</component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Admin\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1711110776621</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711110776621</updated>
+    </task>
+    <servers />
+  </component>
+</project>
