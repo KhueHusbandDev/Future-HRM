@@ -19,7 +19,7 @@ export const MainLayout = () => {
       <AppShell.Navbar p="md">
         <Nav />
       </AppShell.Navbar>
-      <AppShell.Main>
+      <AppShell.Main __size="full">
         <Outlet />
       </AppShell.Main>
     </AppShell>
