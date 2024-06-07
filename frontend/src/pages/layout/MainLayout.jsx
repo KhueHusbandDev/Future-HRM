@@ -19,7 +19,7 @@ export const MainLayout = () => {
       <AppShell.Navbar p="md">
         <Nav />
       </AppShell.Navbar>
-      <AppShell.Main>
+      <AppShell.Main >
         <Outlet />
       </AppShell.Main>
     </AppShell>
