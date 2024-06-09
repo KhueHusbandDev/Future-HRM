@@ -9,6 +9,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { Logo } from "./Logo";
 import { Fragment } from "react";
+import { useAuthStore } from "../../../store/AuthStore";
 export const LoginForm = () => {
   const {
     register,
@@ -18,8 +19,10 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm();
 
+  const { loginUser } = useAuthStore();
+
   const onSubmit = (userData) => {
-    console.log(userData);
+    loginUser({email: userData.email, password: userData.password});
   };
 
   return (
