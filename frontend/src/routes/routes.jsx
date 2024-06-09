@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "../pages/layout/MainLayout";
+import { AttendanceBody } from "../pages/attendance/AttendanceBody";
 
 export const router = createBrowserRouter([
   {
@@ -9,6 +10,8 @@ export const router = createBrowserRouter([
         <MainLayout />
       </>
     ),
-    children: [{ path: "dashboard", element: <h1>This is dashboard</h1> }],
+    children: [
+      { path: "dashboard", element: <h1>This is dashboard</h1> },
+      { path: "attendance", element: <AttendanceBody /> },],
   },
 ]);
