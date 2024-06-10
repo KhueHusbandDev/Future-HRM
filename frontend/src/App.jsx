@@ -1,16 +1,15 @@
-import "./App.css";
+import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { RouterProvider } from "react-router-dom";
-import { router } from "./routes/routes";
-import { Button, MantineProvider } from "@mantine/core";
 import { Toaster } from "sonner";
-import { toast } from "sonner";
+import "./App.css";
+import { router } from "./routes/routes";
 
 function App() {
   return (
     <>
       <MantineProvider>
-        <Toaster richColors/>
+        <Toaster richColors />
         <RouterProvider router={router} />
       </MantineProvider>
     </>

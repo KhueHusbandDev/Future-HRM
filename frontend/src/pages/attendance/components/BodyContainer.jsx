@@ -40,10 +40,15 @@ export const BodyContainer = () => {
   }
 
   return (
+
     <div className="w-full px-5 border-gray-300 border rounded-md">
       <BodyStaffSearchBar updateElements={updateElements} />
       <StaffTileTable elements={elements} />
       <TablePaginator paginate={paginate} />
+
+    <div className="flex flex-col flex-nowrap gap-4">
+      <BodyStaffSearchBar />
+      <StaffTileTable />
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import { BodyContainer } from "./components/BodyContainer"
 import { HeaderBar } from "./components/HeaderBar"
-import "./TailwindCSSContainer.css";
 
 export const AttendanceBody = ({ }) => {
   return (
@@ -8,5 +7,13 @@ export const AttendanceBody = ({ }) => {
       <HeaderBar />
       <BodyContainer />
     </div>
+
+    <>
+      <div className="w-full flex flex-col gap-4">
+        <HeaderBar />
+        <BodyContainer />
+      </div>
+    </>
+
   )
 }

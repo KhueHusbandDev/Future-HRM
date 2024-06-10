@@ -1,9 +1,10 @@
 import { NavLink } from "@mantine/core";
 import { navItems } from "../NavItem";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 export const Nav = () => {
-  const [active, setActive] = useState("Dashboard");
+  const [active, setActive] = useState();
+
   const links = navItems.map((item, index) => (
     <NavLink
       onClick={() => setActive(item.label)}

@@ -8,11 +8,11 @@ export const AuthDrawer = ({ opened, onOpen, onClose, isLogin }) => {
       opened={opened}
       onClose={onClose}
       title={
-        <h2 className="font-sans font-semibold text-3xl">Authentication</h2>
+        <span className="font-sans font-semibold text-3xl">Authentication</span>
       }
       position={"right"}
     >
-      {isLogin ? <LoginForm /> : <ResgisterForm />}
+      {isLogin ? <LoginForm onClose={onClose} /> : <ResgisterForm onClose={onClose}/>}
     </Drawer>
   );
 };

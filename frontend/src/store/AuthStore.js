@@ -1,38 +1,76 @@
-import { toast } from "sonner";
-import { AuthService } from "../services/auth/AuthServices"
-import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
 
-const storeAPI = (set) => ({
-    status: "unauthorized",
-    token: undefined,
-    user: undefined,
-    loginUser: async (email, password) => {
-        try {
-            // const { token, ...user } = await AuthService.login(email, password);
-            // setStatus({ status: "authorized", token, user });
-            set({ status: "authorize", user: { email, password }, token: "tokenTest" })
-            toast.success("Login Success");
-        } catch (error) {
-            set({ status: "unauthorized", token: undefined, user: undefined })
-            toast.error("Login Failed");
-        }
-    },
-    logout: () => {
-        set({ status: "unauthorize", token: undefined, user: undefined });
-    },
-    registerUser: async (userData) => {
-        try {
-            await AuthService.registerUser(userData);
-        } catch (error) {
-            throw new Error(`${error}`)
+import CookieService from "../services/auth/CookiesServices";
 
-        }
+import { devtools, persist, } from "zustand/middleware";
+import { jwtDecode } from "jwt-decode"
+import { create, useStore } from "zustand";
+
+
+const ACCESS_TOKEN_KEY = "accessToken";
+const REFRESH_TOKEN_KEY = "refreshToken";
+
+export const decodeAcessToken = (accessToken) => jwtDecode(accessToken);
+
+const authStore = create(
+    persist((set, get) => ({
+    accessToken: undefined,
+    refressToken: undefined,
+    accessTokenData: undefined,
+    setAccessToken: (accessToken) => {
+        const accessTokenData = (() => {
+            try {
+                return accessToken ? decodeAcessToken(accessToken) : undefined
+            } catch (error) {
+                console.log(error);
+                return undefined;
+            }
+        })();
+        set({ accessToken, accessTokenData });
+    },
+    setRefreshToken: (refressToken) => {
+        set({ refressToken })
+    },
+    clearTokens: () => {
+        set({
+            accessToken: undefined,
+            accessTokenData: undefined,
+            refreshToken: undefined,
+        })
     }
+
+})
+,{name: "auth-store"}))
+
+
+
+//Selector
+const accessTokenSelector = (state) =>
+    state.accessToken;
+const accessTokenDataSelector = (state) =>
+    state.accessTokenData;
+const refreshTokenSelector = (state) =>
+    state.refreshToken;
+const actionsSelector = (state) =>
+({
+    setAccessToken: state.setAccessToken,
+    setRefreshToken: state.setRefreshToken,
+    clearTokens: state.clearTokens
 })
 
-export const useAuthStore = create()(
-    devtools(
-        persist(storeAPI, { name: "auth-store" })
-    )
-)
+//Getter
+export const getAccessToken = () => accessTokenSelector(authStore.getState());
+export const getAccessTokenData = () =>
+    accessTokenDataSelector(authStore.getState());
+export const getRefreshToken = () => refreshTokenSelector(authStore.getState());
+export const getActions = () => actionsSelector(authStore.getState());
+
+
+
+export const useAccessToken = () => useAuthStore(accessTokenSelector);
+export const useAccessTokenData = () => useAuthStore(accessTokenDataSelector);
+export const useRefreshToken = () => useAuthStore(refreshTokenSelector);
+export const useActions = () => useAuthStore(actionsSelector);
+
+export function useAuthStore(selector) {
+    return useStore(authStore, selector);
+}

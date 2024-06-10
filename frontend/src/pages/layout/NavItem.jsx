@@ -1,8 +1,12 @@
-import { IconAB2 } from "@tabler/icons-react";
-import { IconCoin } from "@tabler/icons-react";
-import { IconBrowserCheck } from "@tabler/icons-react";
-import { IconUsersGroup } from "@tabler/icons-react";
-import { IconDashboard } from "@tabler/icons-react";
+import {
+  IconAB2,
+  IconBrowserCheck,
+  IconCoin,
+  IconDashboard,
+  IconList,
+  IconPlaneDeparture,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 
 export const navItems = [
   {
@@ -29,5 +33,15 @@ export const navItems = [
     label: "Payroll",
     ref: "/payroll",
     icon: <IconCoin size={28} />,
+  },
+  {
+    label: "Leaves",
+    ref: "/leaves",
+    icon: <IconList size={28} />,
+  },
+  {
+    label: "Holidays",
+    ref: "/holidays",
+    icon: <IconPlaneDeparture size={28} />,
   },
 ];
