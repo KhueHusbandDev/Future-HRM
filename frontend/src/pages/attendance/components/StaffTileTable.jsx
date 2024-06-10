@@ -1,14 +1,7 @@
+import React from 'react';
 import { Avatar, Button, Table } from "@mantine/core";
 
 export const StaffTileTable = ({ elements }) => {
-  elements = [
-    { id: 1, name: "Nguyen Van A", designation: 'CEO', type: 'Office', checkInTime: "12:00 AM", status: true },
-    { id: 2, name: "Nguyen Van B", designation: 'Manager', type: 'Office', checkInTime: "12:00 AM", status: true },
-    { id: 3, name: "Nguyen Van C", designation: 'IT', type: 'Remote', checkInTime: "12:00 AM", status: false },
-    { id: 4, name: "Nguyen Van D", designation: 'Tester', type: 'Remote', checkInTime: "12:00 AM", status: true },
-    { id: 5, name: "Nguyen Van E", designation: 'HR', type: 'Office', checkInTime: "12:00 AM", status: false },
-    { id: 6, name: "Nguyen Van F", designation: 'Security', type: 'Remote', checkInTime: "12:00 AM", status: true },
-  ];
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.id}>
@@ -36,4 +29,4 @@ export const StaffTileTable = ({ elements }) => {
       <Table.Tbody>{rows}</Table.Tbody>
     </Table>
   );
-}
+};

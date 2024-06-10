@@ -4,11 +4,9 @@ import "./TailwindCSSContainer.css";
 
 export const AttendanceBody = ({ }) => {
   return (
-    <>
-      <div className="w-full">
-        <HeaderBar />
-        <BodyContainer />
-      </div>
-    </>
+    <div className="w-full">
+      <HeaderBar />
+      <BodyContainer />
+    </div>
   )
 }
