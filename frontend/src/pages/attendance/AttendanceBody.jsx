@@ -1,19 +1,13 @@
-import { BodyContainer } from "./components/BodyContainer"
-import { HeaderBar } from "./components/HeaderBar"
+import { BodyContainer } from "./components/BodyContainer";
+import { HeaderBar } from "./components/HeaderBar";
 
-export const AttendanceBody = ({ }) => {
+export const AttendanceBody = ({}) => {
   return (
-    <div className="w-full">
-      <HeaderBar />
-      <BodyContainer />
-    </div>
-
     <>
       <div className="w-full flex flex-col gap-4">
         <HeaderBar />
         <BodyContainer />
       </div>
     </>
-
-  )
-}
+  );
+};
