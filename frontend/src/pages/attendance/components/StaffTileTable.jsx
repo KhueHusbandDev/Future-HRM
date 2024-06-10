@@ -1,3 +1,4 @@
+import React from 'react';
 import { Avatar, Button, Table } from "@mantine/core";
 
 export const StaffTileTable = ({ elements }) => {
