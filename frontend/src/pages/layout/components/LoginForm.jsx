@@ -6,11 +6,18 @@ import {
   PasswordInput,
   TextInput,
 } from "@mantine/core";
-import { Controller, useForm } from "react-hook-form";
-import { Logo } from "./Logo";
+import sign from "jwt-encode";
 import { Fragment } from "react";
-import { useAuthStore } from "../../../store/AuthStore";
-export const LoginForm = () => {
+import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useActions } from "../../../store/AuthStore";
+import { Logo } from "./Logo";
+
+export const LoginForm = ({ onClose }) => {
+  const navigate = useNavigate();
+  const actions = useActions();
+
   const {
     register,
     handleSubmit,
@@ -19,10 +26,14 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm();
 
-  const { loginUser } = useAuthStore();
-
   const onSubmit = (userData) => {
-    loginUser({email: userData.email, password: userData.password});
+    const token = sign(userData, "secret");
+
+    actions.setAccessToken(token);
+
+    toast.success("Login Success");
+    navigate("/dashboard");
+    onClose();
   };
 
   return (
@@ -36,7 +47,7 @@ export const LoginForm = () => {
       </Paper>
       <Controller
         name="email"
-        defaultValue={null}
+        defaultValue={""}
         control={control}
         rules={{ required: "Email must not be blank" }}
         render={({ field, fieldState }) => {
@@ -52,7 +63,7 @@ export const LoginForm = () => {
       />
       <Controller
         name="password"
-        defaultValue={null}
+        defaultValue={""}
         control={control}
         rules={{ required: "Password must not be blank" }}
         render={({ field, fieldState }) => {

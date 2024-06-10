@@ -10,7 +10,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { Logo } from "./Logo";
 import { Fragment } from "react";
-export const ResgisterForm = () => {
+export const ResgisterForm = ({onClose}) => {
   const {
     register,
     handleSubmit,
