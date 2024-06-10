@@ -3,11 +3,6 @@ import { HeaderBar } from "./components/HeaderBar"
 
 export const AttendanceBody = ({ }) => {
   return (
-    <div className="w-full">
-      <HeaderBar />
-      <BodyContainer />
-    </div>
-
     <>
       <div className="w-full flex flex-col gap-4">
         <HeaderBar />
