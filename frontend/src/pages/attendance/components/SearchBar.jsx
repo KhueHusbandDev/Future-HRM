@@ -7,7 +7,7 @@ export const SearchBar = ({}) => {
       <TextInput
         radius="xl"
         size="md"
-        placeholder="Search for Staff"
+        placeholder="Search..."
         rightSectionWidth={42}
         leftSection={
           <IconSearch
