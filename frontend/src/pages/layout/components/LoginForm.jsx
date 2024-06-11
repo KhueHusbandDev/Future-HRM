@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useActions } from "../../../store/AuthStore";
 import { Logo } from "./Logo";
+import { AuthService } from "../../../services/auth/AuthServices";
 
 export const LoginForm = ({ onClose }) => {
   const navigate = useNavigate();
@@ -26,14 +27,16 @@ export const LoginForm = ({ onClose }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (userData) => {
+  const onSubmit = async (userData) => {
     const token = sign(userData, "secret");
 
     actions.setAccessToken(token);
-
-    toast.success("Login Success");
-    navigate("/dashboard");
-    onClose();
+    const data = await AuthService.login(userData);
+    if (!!data) {
+      toast.success("Login Success");
+      navigate("/dashboard");
+      onClose();
+    }
   };
 
   return (

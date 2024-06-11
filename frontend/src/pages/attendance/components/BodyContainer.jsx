@@ -174,7 +174,7 @@ export const BodyContainer = () => {
 
   return (
     <>
-      <div className="flex flex-col flex-nowrap gap-4">
+     <div className="flex flex-col flex-nowrap gap-4">
         <BodyStaffSearchBar />
         <StaffTileTable />
       </div>
