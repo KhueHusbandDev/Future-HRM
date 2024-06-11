@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AttendanceBody } from "../pages/attendance/AttendanceBody";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { MainLayout } from "../pages/layout/MainLayout";
+import { Employee } from "../pages/employee/Employee";
 
 export const router = createBrowserRouter([
   {
@@ -17,9 +18,9 @@ export const router = createBrowserRouter([
       { path: "department", element: <AttendanceBody /> },
       { path: "payroll", element: <AttendanceBody /> },
       { path: "holidays", element: <AttendanceBody /> },
-      { path: "employee", element: <AttendanceBody /> },
+      { path: "employee", element: <Employee /> },
       { path: "leaves", element: <AttendanceBody /> },
-      {path: "login", element: <h2>You are not Login</h2>}
+      { path: "login", element: <h2>You are not Login</h2> },
     ],
   },
 ]);

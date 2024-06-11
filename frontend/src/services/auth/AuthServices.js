@@ -1,4 +1,4 @@
-import {configApi} from "../../api/config";
+import { configApi } from "../../api/config";
 
 export class AuthService {
     static login = async (email, password) => {
