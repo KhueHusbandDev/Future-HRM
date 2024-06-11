@@ -6,6 +6,8 @@ import {
   IconList,
   IconPlaneDeparture,
   IconUsersGroup,
+  IconBriefcase,
+  IconCircleLetterC,
 } from "@tabler/icons-react";
 
 export const navItems = [
@@ -28,6 +30,11 @@ export const navItems = [
     label: "Attendance",
     ref: "/attendance",
     icon: <IconBrowserCheck size={28} />,
+  },
+  {
+    label: "Contracts",
+    ref: "/contracts",
+    icon: <IconCircleLetterC size={28} />,
   },
   {
     label: "Payroll",
