@@ -15,7 +15,7 @@ export const Header = ({ isNavBarOpen, onOpenNavBar }) => {
 
   return (
     <header className="flex flex-row flex-nowrap h-14 w-full pr-8">
-      <Group h="100%" px="md">
+      <div className="flex h-full px-4 justify-center items-center">
         <Burger
           opened={isNavBarOpen}
           onClick={() => {
@@ -24,8 +24,8 @@ export const Header = ({ isNavBarOpen, onOpenNavBar }) => {
           hiddenFrom="sm"
           size="sm"
         />
-        <Logo w={50} h={50} />
-      </Group>
+        <Logo w={70} h={250} />
+      </div>
       <div className="flex-grow" />
       {!!token ? (
         <UserMenu />
