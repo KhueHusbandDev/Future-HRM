@@ -3,6 +3,7 @@ import { AttendanceBody } from "../pages/attendance/AttendanceBody";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { MainLayout } from "../pages/layout/MainLayout";
 import { Employee } from "../pages/employee/Employee";
+import { PayrollBody } from "../pages/payroll/PayrollBody";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
       { path: "dashboard", element: <Dashboard /> },
       { path: "attendance", element: <AttendanceBody /> },
       { path: "department", element: <AttendanceBody /> },
-      { path: "payroll", element: <AttendanceBody /> },
+      { path: "payroll", element: <PayrollBody /> },
       { path: "holidays", element: <AttendanceBody /> },
       { path: "employee", element: <Employee /> },
       { path: "leaves", element: <AttendanceBody /> },
