@@ -7,8 +7,6 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { DataTable } from "mantine-datatable";
- import { useNavigate } from 'react-router-dom';
-  // const navigate = useNavigate();
 
 export const DepartmentTable = () => {
   const elements = [
