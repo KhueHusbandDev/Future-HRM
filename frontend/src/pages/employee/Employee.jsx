@@ -14,6 +14,8 @@ export const Employee = () => {
           <div className="flex-grow" />
           <Group>
             <Button
+              component="a"
+              href="/employee/add"
               w={225}
               h={50}
               className="text-white bg-indigo-500 rounded-md"
