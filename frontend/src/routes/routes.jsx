@@ -5,9 +5,9 @@ import { MainLayout } from "../pages/layout/MainLayout";
 import { Employee } from "../pages/employee/Employee";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
 import { ContractBody } from "../pages/contract/ContractBody";
-
 import { Department } from "../pages/department/Department";
 import { Holidays } from "../pages/holidays/Holidays";
+import { Notifications } from "../pages/employee/Notifications";
 //  import { ViewDepartment, Viewdepartment } from "../pages/department/ViewDepartment";
 //  import { Link } from 'react-router-dom';
 
@@ -32,7 +32,8 @@ export const router = createBrowserRouter([
       { path: "employee", element: <Employee /> },
       { path: "employee/add", element: <AddEmployee />},
       { path: "leaves", element: <AttendanceBody /> },
-      {path:"contracts",element:<ContractBody/>},
+      { path:"contracts",element:<ContractBody/>},
+      { path: "employee/notifications", element: <Notifications/>},
       { path: "login", element: <h2>You are not Login</h2> },
     ],
   },

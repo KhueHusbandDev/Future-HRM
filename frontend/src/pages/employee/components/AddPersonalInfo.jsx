@@ -1,6 +1,5 @@
 import { Button, Group, TextInput, NativeSelect } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
-
 import { useForm } from '@mantine/form';
 
 function AddPersonalInfo() {
