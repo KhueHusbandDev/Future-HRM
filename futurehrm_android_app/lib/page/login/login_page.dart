@@ -2,11 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:futurehrm_android_app/models/response_data.dart';
+import 'package:futurehrm_android_app/models/server_connector.dart';
 import 'package:futurehrm_android_app/models/staff.dart';
 import 'package:futurehrm_android_app/page/menu_page.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
+  static String routeName = "/login";
+
   const LoginPage({super.key});
 
   @override
@@ -19,23 +23,33 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  void _login(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+  late Box<dynamic> authBox;
 
-      // try {
-      String url = 'http://192.168.1.6:8080/staff/login/${email}/${password}';
-      final response = await http.get(Uri.parse(url));
+  void openAuthBox() async {
+    authBox = await Hive.openBox("Auth");
+  }
+
+  void _login(String email, String password) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      String url = '${ServerConnector.baseUrl}/staff/login/$email/$password';
+      var response = await http
+          .get(Uri.parse(url), headers: {"mode": "no-cors", "method": "GET"});
+      print("Login Success 1");
       if (response.statusCode == 200) {
         final parsed = ResponseData.fromMap(json.decode(response.body));
         if (parsed.data != null) {
           Staff stf = Staff.fromMap(parsed.data!);
+          authBox.put("CurrentAuth", stf);
+          print("Login Success");
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MenuPage(authId: stf.id!)),
+            MaterialPageRoute(builder: (context) => MenuPage()),
           );
+          print("Login Success 2");
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Invalid login data')),
@@ -44,20 +58,14 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         throw Exception('Failed to authenticate');
       }
-      // } catch (e) {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     SnackBar(content: Text('Error: $e')),
-      //   );
-      // } finally {
-      //   setState(() {
-      //     _isLoading = false;
-      //   });
-      // }
+    } on Exception catch (e) {
+      print(e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    openAuthBox();
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -67,29 +75,16 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 50,
+                const SizedBox(
+                  height: 10,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black, // Border color
-                      width: 3.0, // Border width
-                    ),
-                    borderRadius:
-                        BorderRadius.circular(40.0), // Same as ClipRRect
-                  ),
-                  child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(40.0), // ClipRRect radius
-                    child: Image.asset(
-                      "assets/images/Logo.jpg",
-                      width: 300,
-                    ),
-                  ),
+                Image.asset(
+                  "assets/images/Logo.jpg",
+                  width: 300,
+                  height: 300,
                 ),
-                SizedBox(
-                  height: 30,
+                const SizedBox(
+                  height: 10,
                 ),
                 const Text(
                   "Login Form",
@@ -101,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Email",
                         style: TextStyle(fontSize: 24),
                       ),
@@ -122,10 +117,10 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         "Password",
                         style: TextStyle(fontSize: 24),
                       ),
@@ -147,14 +142,37 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                       ),
-                      ElevatedButton(
-                        child: const Text('Sign in'),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _login(_emailController.text,
-                                _passwordController.text);
-                          }
-                        },
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 80,
+                              ),
+                              backgroundColor: Colors.orange,
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _login(_emailController.text,
+                                    _passwordController.text);
+                              }
+                            },
+                            child: const Text(
+                              'Log in',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                     ],
                   ),
