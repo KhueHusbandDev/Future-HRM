@@ -1,61 +1,81 @@
-import { Button, Group, TextInput, NativeSelect } from '@mantine/core';
-import { DatePickerInput } from '@mantine/dates';
-
-import { useForm } from '@mantine/form';
+import { Button, Group, NativeSelect, TextInput } from "@mantine/core";
+import { DateInput, DatePickerInput } from "@mantine/dates";
+import { Controller, useForm } from "react-hook-form";
+import { FloatingDate } from "../../components/FloatingDate";
+import { FloatingInput } from "../../components/FloatingInput";
+import { FloatingSelect } from "../../components/FloatingSelect";
 
 function AddPersonalInfo() {
-  const form = useForm({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      mobileNumber: '',
-      email: '',
-      dateOfBirth: '',
-      maritalStatus: '',
-      gender: '',
-      nationality: '',
-      address: '',
-      city: '',
-      state: '',
-      zipCode: '',
-    },
-
-    validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-    },
+  const { handleSubmit, control, register } = useForm({
+    mode: "onChange",
+    defaultValues: {},
   });
+  const onSubmit = (formData) => {
+    console.log("ts", formData);
+  };
 
   return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
-      <Group direction="columns" spacing="md" grow>
-        <Group grow>
-          <TextInput
-            withAsterisk
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col flex-nowrap p-4 w-full h-full gap-8">
+        <div className="flex flex-row justify-between gap-12">
+          <FloatingInput
+            inputId="firstName"
             label="First Name"
-            placeholder="First Name"
-            {...form.getInputProps('firstName')}
+            className="w-1/2 h-14"
+            {...register("firstName")}
           />
-          <TextInput
-            withAsterisk
+          <FloatingInput
+            inputId="lastName"
             label="Last Name"
-            placeholder="Last Name"
-            {...form.getInputProps('lastName')}
+            className="w-1/2 h-14"
+            {...register("lastName")}
+          />
+        </div>
+        <div className="flex flex-row justify-between gap-12">
+          <FloatingInput
+            inputId="phoneNumber"
+            label="Phone Number"
+            className="w-1/2 h-14"
+            {...register("phoneNumber")}
+          />
+          <FloatingInput
+            inputId="email"
+            label="Email"
+            className="w-1/2 h-14"
+            {...register("email")}
+          />
+        </div>
+        <div className="flex flex-row justify-between gap-12">
+          <FloatingDate
+            inputId="dob"
+            label="Date of Birth"
+            className="w-1/2 h-14"
+            {...register("dob")}
+          />
+          <FloatingSelect
+            inputId="maritalStatus"
+            label="Marital Status"
+            className="w-1/2 h-14"
+            selections={["Single", "Married", "Divorced", "Widowed"]}
+            {...register("maritalStatus")}
+          />
+        </div>
+      </div>
+      {/* <f direction="columns" spacing="md" grow>
+        <Group grow>
+          <Controller
+            name="firstName"
+            control={control}
+            render={(field) => {}}
           />
         </Group>
-
         <Group grow>
           <TextInput
             withAsterisk
             label="Mobile Number"
             placeholder="Mobile Number"
-            {...form.getInputProps('mobileNumber')}
           />
-          <TextInput
-            withAsterisk
-            label="Email"
-            placeholder="your@email.com"
-            {...form.getInputProps('email')}
-          />
+          <TextInput withAsterisk label="Email" placeholder="your@email.com" />
         </Group>
 
         <Group grow>
@@ -63,15 +83,12 @@ function AddPersonalInfo() {
             withAsterisk
             label="Date of Birth"
             placeholder="Date of Birth"
-            
-            {...form.getInputProps('dateOfBirth')}
           />
           <NativeSelect
             withAsterisk
             label="Marital Status"
-            data={['Single', 'Married', 'Divorced', 'Widowed']}
+            data={["Single", "Married", "Divorced", "Widowed"]}
             placeholder="Marital Status"
-            {...form.getInputProps('maritalStatus')}
           />
         </Group>
 
@@ -79,51 +96,31 @@ function AddPersonalInfo() {
           <NativeSelect
             withAsterisk
             label="Gender"
-            data={['Male', 'Female', 'Other']}
+            data={["Male", "Female", "Other"]}
             placeholder="Gender"
-            {...form.getInputProps('gender')}
           />
           <TextInput
             withAsterisk
             label="Nationality"
             placeholder="Nationality"
-            {...form.getInputProps('nationality')}
           />
         </Group>
 
-        <TextInput
-          withAsterisk
-          label="Address"
-          placeholder="Address"
-          {...form.getInputProps('address')}
-        />
+        <TextInput withAsterisk label="Address" placeholder="Address" />
 
         <Group grow>
-          <TextInput
-            withAsterisk
-            label="City"
-            placeholder="City"
-            {...form.getInputProps('city')}
-          />
-          <TextInput
-            withAsterisk
-            label="State"
-            placeholder="State"
-            {...form.getInputProps('state')}
-          />
-          <TextInput
-            withAsterisk
-            label="ZIP Code"
-            placeholder="ZIP Code"
-            {...form.getInputProps('zipCode')}
-          />
+          <TextInput withAsterisk label="City" placeholder="City" />
+          <TextInput withAsterisk label="State" placeholder="State" />
+          <TextInput withAsterisk label="ZIP Code" placeholder="ZIP Code" />
         </Group>
-      </Group>
+      </f>
 
       <Group position="right" mt="md">
         <Button type="submit">Next</Button>
-        <Button type="button" variant="outline">Cancel</Button>
-      </Group>
+        <Button type="button" variant="outline">
+          Cancel
+        </Button>
+      </Group> */}
     </form>
   );
 }

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @layer mantine, mantine-datatable;
-@import '@mantine/dropzone/styles.css';
+
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

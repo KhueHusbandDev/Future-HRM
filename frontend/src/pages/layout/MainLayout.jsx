@@ -4,9 +4,10 @@ import { Outlet } from "react-router-dom";
 import { useAccessToken } from "../../store/AuthStore";
 import { Header } from "./components/Header";
 
+import { memo } from "react";
 import { Nav } from "./components/Nav";
 
-export const MainLayout = () => {
+const MainLayout = () => {
   const [opened, { toggle: toggleNavBar }] = useDisclosure();
   const token = useAccessToken();
 
@@ -28,3 +29,5 @@ export const MainLayout = () => {
     </AppShell>
   );
 };
+
+export default memo(MainLayout);

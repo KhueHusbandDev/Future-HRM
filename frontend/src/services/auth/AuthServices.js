@@ -1,9 +1,9 @@
+import { toast } from "sonner";
 import { configApi } from "../../api/config";
 
 export class AuthService {
   static login = async (userData) => {
     try {
-      console.log(userData.email + " / " + userData.password)
       const { data } = await fetch(`http://localhost:8080/staff/login/${userData.email}/${userData.password}`, {
         mode: "no-cors",
         method: "GET"
@@ -14,7 +14,6 @@ export class AuthService {
         console.log(error.response?.data);
         throw new Error(error.response?.data)
       }
-      console.log(error);
       throw new Error('Login Failed')
     }
   }

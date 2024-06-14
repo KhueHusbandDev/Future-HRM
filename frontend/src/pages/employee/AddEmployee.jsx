@@ -5,7 +5,7 @@ import AddPersonalInfo from './components/AddPersonalInfo';
 
 export const AddEmployee = () => {
   const [activeTab, setActiveTab] = useState('personal_information');
-
+  
   return (
     <Tabs value={activeTab} onChange={setActiveTab} color="violet">
       <TabsList>
