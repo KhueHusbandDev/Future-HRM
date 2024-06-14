@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/images/Logo_Circle_FutureHRM.svg
     - assets/images/Logo.jpg
+    - assets/images/MenuPage/MotivatePpl.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

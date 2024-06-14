@@ -6,10 +6,11 @@
 package com.example.demo.services;
 
 /**
- *
  * @author nguyenngocanhtam
  */
+
 import com.example.demo.entities.Staff;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +58,8 @@ public interface StaffService {
     void updatePassword(int id, String new_pass);
 
     List<Staff> findStaffDepartment(int department);
-    
+
     boolean checkEmail(String email, int id);
-    
+
     boolean checkIdNumber(String id_number, int id);
 }

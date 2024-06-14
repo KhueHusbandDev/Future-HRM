@@ -1,3 +1,3 @@
 class ServerConnector {
-  static String baseUrl = "http://192.168.225.85:8080";
+  static String baseUrl = "http://192.168.1.6:8080";
 }

@@ -7,28 +7,28 @@ package com.example.demo.services;
 
 import com.example.demo.entities.CheckInOut;
 import com.example.demo.repositories.CheckInOutRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManagerFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManagerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
- *
  * @author Red
  */
 @Service
-public class CheckInOutImpl implements CheckInOutService{
+public class CheckInOutImpl implements CheckInOutService {
     @Autowired
     private CheckInOutRepository repository;
-    
+
     @Autowired
     EntityManagerFactory emf;
-    
+
     @Override
     public void save(CheckInOut check) {
         repository.save(check);
@@ -39,11 +39,7 @@ public class CheckInOutImpl implements CheckInOutService{
         try {
             Date date_check_in_day = new SimpleDateFormat("yyyy-MM-dd").parse(check_in_day);
             CheckInOut check_check_in_out = repository.checkCheckIn(staff_id, date_check_in_day);
-            if(check_check_in_out == null) {
-                return true;
-            } else {
-                return false;
-            }
+            return check_check_in_out == null;
         } catch (ParseException ex) {
             Logger.getLogger(CheckInOutImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,15 +63,11 @@ public class CheckInOutImpl implements CheckInOutService{
             Date from = new SimpleDateFormat("yyyy-MM-dd").parse(from_date);
             Date to = new SimpleDateFormat("yyyy-MM-dd").parse(to_date);
             CheckInOut check_check_in_out = repository.checkCheckInLeaveOther(staff_id, from, to);
-            if(check_check_in_out == null) {
-                return true;
-            } else {
-                return false;
-            }
+            return check_check_in_out == null;
         } catch (ParseException ex) {
             Logger.getLogger(CheckInOutImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
-   
+
 }

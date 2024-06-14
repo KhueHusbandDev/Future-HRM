@@ -7,38 +7,34 @@ package com.example.demo.services;
 
 import com.example.demo.entities.TimeLeave;
 import com.example.demo.repositories.TimeLeaveRepository;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- *
  * @author Red
  */
 @Service
-public class TimeLeaveImpl implements TimeLeaveService{
+public class TimeLeaveImpl implements TimeLeaveService {
     @Autowired
     private TimeLeaveRepository repository;
-    
+
     @Autowired
     EntityManagerFactory emf;
-    
+
     @Override
     public void addTimeLeave(TimeLeave timeleave) {
         repository.save(timeleave);
     }
-    
+
     @Override
     public TimeLeave findOne(int id) {
         return repository.findOne(id);
@@ -67,7 +63,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
             repository.deleteById(id);
             return true;
         } catch (Exception e) {
-            
+
         }
         return false;
     }
@@ -96,18 +92,18 @@ public class TimeLeaveImpl implements TimeLeaveService{
     public void updateDayTimeLeaveOfStaff(int id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-          Query query = em.createQuery("UPDATE Staff SET day_of_leave = day_of_leave - 1 WHERE id = ?1")
+        Query query = em.createQuery("UPDATE Staff SET day_of_leave = day_of_leave - 1 WHERE id = ?1")
                 .setParameter(1, id);
         query.executeUpdate();
         em.getTransaction().commit();
         em.close();
     }
-    
+
     @Override
     public void revertDayTimeLeaveOfStaff(int id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-          Query query = em.createQuery("UPDATE Staff SET day_of_leave = day_of_leave + 1 WHERE id = ?1")
+        Query query = em.createQuery("UPDATE Staff SET day_of_leave = day_of_leave + 1 WHERE id = ?1")
                 .setParameter(1, id);
         query.executeUpdate();
         em.getTransaction().commit();
@@ -149,7 +145,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
         em.getTransaction().commit();
         em.close();
     }
-    
+
     @Override
     public void adminApproveTimeLeave(String is_approved, int id, Date day_approve) {
         EntityManager em = emf.createEntityManager();
@@ -162,7 +158,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
         em.getTransaction().commit();
         em.close();
     }
-    
+
     @Override
     public ArrayList getAllStaffTime(String y_m) {
         try {
@@ -173,7 +169,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
         }
         return null;
     }
-    
+
     @Override
     public ArrayList getAllStaffTimeFromTo(String from_date, String to_date) {
         try {
@@ -188,7 +184,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
 
     @Override
     public ArrayList<Map<String, Object>> getTimeLeaveFromTo(String from_date, String to_date) {
-         try {
+        try {
             Date from = new SimpleDateFormat("yyyy-MM-dd").parse(from_date);
             Date to = new SimpleDateFormat("yyyy-MM-dd").parse(to_date);
             return repository.getTimeLeaveFromTo(from, to);
@@ -204,7 +200,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
             Date from = new SimpleDateFormat("yyyy-MM-dd").parse(from_date);
             Date to = new SimpleDateFormat("yyyy-MM-dd").parse(to_date);
             repository.doneLeave(from, to);
-            
+
         } catch (ParseException ex) {
             Logger.getLogger(CheckInOutImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -212,7 +208,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
 
     @Override
     public ArrayList<Map<String, Object>> SummaryStaffTime(String y_m) {
-       try {
+        try {
             Date time = new SimpleDateFormat("yyyy-MM-dd").parse(y_m);
             return repository.SummaryStaffTime(time);
         } catch (ParseException ex) {
@@ -250,7 +246,7 @@ public class TimeLeaveImpl implements TimeLeaveService{
 
     @Override
     public ArrayList<Map<String, Object>> GetAllDetailTimeLeave(String month_get) {
-         try {
+        try {
             Date time = new SimpleDateFormat("yyyy-MM-dd").parse(month_get);
             return repository.GetAllDetailTimeLeave(time);
         } catch (ParseException ex) {
