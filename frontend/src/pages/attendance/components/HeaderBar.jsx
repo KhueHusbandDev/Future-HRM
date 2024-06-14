@@ -1,5 +1,6 @@
 import { SearchBar } from "./SearchBar"
 import { NotificationButton } from "./NotificationButton"
+import { Component } from "react"
 
 export const HeaderBar = ({ }) => {
   return (
@@ -14,7 +15,10 @@ export const HeaderBar = ({ }) => {
         </div>
         <div className="w-1/2 flex align-middle items-center">
           <SearchBar className="p-5 flex" />
-          <NotificationButton />
+          <NotificationButton 
+            Component="a"
+            href="/employee/notifications"
+          />
         </div>
       </header >
     </>

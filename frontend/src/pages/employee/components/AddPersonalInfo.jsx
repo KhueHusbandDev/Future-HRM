@@ -1,9 +1,11 @@
+
 import { Button, Group, NativeSelect, TextInput } from "@mantine/core";
 import { DateInput, DatePickerInput } from "@mantine/dates";
 import { Controller, useForm } from "react-hook-form";
 import { FloatingDate } from "../../components/FloatingDate";
 import { FloatingInput } from "../../components/FloatingInput";
 import { FloatingSelect } from "../../components/FloatingSelect";
+
 
 function AddPersonalInfo() {
   const { handleSubmit, control, register } = useForm({
