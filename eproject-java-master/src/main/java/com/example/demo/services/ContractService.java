@@ -7,12 +7,12 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Contract;
 import com.example.demo.repositories.IContractRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
- *
  * @author tonamson
  */
 @Service
@@ -35,7 +35,7 @@ public class ContractService implements IContractService {
     public List<Contract> findAll() {
         return contractRepository.findAll();
     }
-    
+
     @Override
     public void deleteContract(int id) {
         contractRepository.deleteContract(id);

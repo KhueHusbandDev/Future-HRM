@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:futurehrm_android_app/models/response_data.dart';
+import 'package:futurehrm_android_app/models/route_paths.dart';
 import 'package:futurehrm_android_app/models/server_connector.dart';
 import 'package:futurehrm_android_app/models/staff.dart';
-import 'package:futurehrm_android_app/page/menu_page.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,11 +43,15 @@ class _LoginPageState extends State<LoginPage> {
         final parsed = ResponseData.fromMap(json.decode(response.body));
         if (parsed.data != null) {
           Staff stf = Staff.fromMap(parsed.data!);
+          if (authBox.get("CurrentAuth") != null) {
+            authBox.clear();
+          }
           authBox.put("CurrentAuth", stf);
+
           print("Login Success");
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(builder: (context) => MenuPage()),
+            RoutePaths.menuPage,
           );
           print("Login Success 2");
         } else {

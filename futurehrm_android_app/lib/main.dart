@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:futurehrm_android_app/helper/router.dart';
+import 'package:futurehrm_android_app/models/route_paths.dart';
 import 'package:futurehrm_android_app/models/staff.dart';
-import 'package:futurehrm_android_app/page/login/login_page.dart';
-import 'package:futurehrm_android_app/page/menu_page.dart';
 import 'package:hive_flutter/adapters.dart';
 
 void main() async {
@@ -39,11 +39,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true),
       debugShowCheckedModeBanner: false,
       // home: LoginPage(),
-      initialRoute: "/login",
-      routes: {
-        LoginPage.routeName: (context) => const LoginPage(),
-        MenuPage.routeName: (context) => MenuPage(),
-      },
+      initialRoute: RoutePaths.menuPage,
+      onGenerateRoute: RouterHelper.generateRoute,
     );
   }
 }

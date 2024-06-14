@@ -5,20 +5,20 @@
  */
 package com.example.demo.services;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.example.demo.entities.Staff;
 import com.example.demo.repositories.StaffRepository;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Optional;
-import javax.persistence.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
- *
  * @author nguyenngocanhtam
  */
 @Service
@@ -32,7 +32,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<Staff> findAll() {
-        return (List<Staff>) repository.findAlls();
+        return repository.findAlls();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<Staff> findUndo() {
-        return (List<Staff>) repository.ListUndo();
+        return repository.ListUndo();
     }
 
     @Override
@@ -149,11 +149,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public boolean checkOldPass(int id, String password) {
-        if (repository.checkOldPass(id, password) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return repository.checkOldPass(id, password) != null;
     }
 
     @Override
@@ -178,19 +174,13 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public boolean checkEmail(String email, int id) {
         Staff staff = repository.checkEmail(email, id);
-        if(staff == null) {
-            return true;
-        }
-        return false;
+        return staff == null;
     }
 
     @Override
     public boolean checkIdNumber(String id_number, int id) {
         Staff staff = repository.checkIdNumber(id_number, id);
-        if(staff == null) {
-            return true;
-        }
-        return false;
+        return staff == null;
     }
 
 }
