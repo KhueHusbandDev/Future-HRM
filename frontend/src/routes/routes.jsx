@@ -6,8 +6,12 @@ import { Employee } from "../pages/employee/Employee";
 import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
 
+import { ContractBody } from "../pages/contract/ContractBody";
+
+
 import { Department } from "../pages/department/Department";
 import { Holidays } from "../pages/holidays/Holidays";
+import { Notifications } from "../pages/employee/Notifications";
 //  import { ViewDepartment, Viewdepartment } from "../pages/department/ViewDepartment";
 //  import { Link } from 'react-router-dom';
 
@@ -50,6 +54,8 @@ export const router = createBrowserRouter([
       },
 
       { path: "leaves", element: <AttendanceBody /> },
+      { path:"contracts",element:<ContractBody/>},
+      { path: "employee/notifications", element: <Notifications/>},
       { path: "contracts", element: <ContractBody /> },
       { path: "login", element: <h2>You are not Login</h2> },
     ],
