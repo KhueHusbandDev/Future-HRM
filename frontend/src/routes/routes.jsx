@@ -5,9 +5,20 @@ import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Employee } from "../pages/employee/Employee";
 import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
+
+<<<<<<< Updated upstream
+import { ContractBody } from "../pages/contract/ContractBody";
+=======
+<<<<<<< Updated upstream
+// import { ContractBody } from "../pages/contract/ContractBody";
+>>>>>>> Stashed changes
+
+
+=======
+>>>>>>> Stashed changes
 import { Department } from "../pages/department/Department";
-import { Holidays } from "../pages/holidays/Holidays";
 import { Notifications } from "../pages/employee/Notifications";
+import { Holidays } from "../pages/holidays/Holidays";
 //  import { ViewDepartment, Viewdepartment } from "../pages/department/ViewDepartment";
 //  import { Link } from 'react-router-dom';
 
@@ -22,14 +33,11 @@ export const router = createBrowserRouter([
       </>
     ),
     children: [
-      { index: true, path: "dashboard", element: <Dashboard /> },
+      { index: true, path: "/dashboard", element: <Dashboard /> },
       { path: "attendance", element: <AttendanceBody /> },
       { path: "department", element: <Department /> },
       { path: "payroll", element: <PayrollBody /> },
       { path: "holidays", element: <Holidays /> },
-      { path: "employee", element: <Employee /> },
-      { path: "employee/add", element: <AddEmployee /> },
-      { path: "holidays", element: <AttendanceBody /> },
       {
         path: "employee",
         element: (
@@ -46,14 +54,14 @@ export const router = createBrowserRouter([
             path: "add-new-employee",
             element: <AddEmployee />,
           },
+          {
+            path: "notifications",
+            element: <Notifications />,
+          },
         ],
       },
-
       { path: "leaves", element: <AttendanceBody /> },
-      { path:"contracts",element:<ContractBody/>},
-      { path: "employee/notifications", element: <Notifications/>},
       { path: "contracts", element: <ContractBody /> },
-      { path: "login", element: <h2>You are not Login</h2> },
     ],
   },
 ]);
