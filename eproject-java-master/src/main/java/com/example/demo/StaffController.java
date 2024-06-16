@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.controller;
+package com.example.demo;
 
 import com.example.demo.entities.Staff;
 import com.example.demo.helpers.ResponseHandler;
@@ -25,7 +25,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
- * @author nguyenngocanhtam
+ *
+ * @author Hai Anh
  */
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/staff") // This means URL's start with /demo (after Application path)
@@ -145,11 +146,11 @@ public class StaffController {
     @PostMapping(path = "/update")
     public ResponseEntity<Object> updateDepartment(@RequestBody Staff staff) {
         try {
-            if (!service.checkEmail(staff.getEmail(), staff.getId())) {
+            if(service.checkEmail(staff.getEmail(), staff.getId()) == false) {
                 return ResponseHandler.generateResponse(HttpStatus.OK, true, "Duplicate email", true);
             }
-
-            if (!service.checkIdNumber(staff.getIdNumber(), staff.getId())) {
+            
+            if(service.checkIdNumber(staff.getIdNumber(), staff.getId()) == false) {
                 return ResponseHandler.generateResponse(HttpStatus.OK, true, "Duplicate id number", true);
             }
             service.editStaff(staff);
@@ -246,7 +247,7 @@ public class StaffController {
 
         return ResponseHandler.generateResponse(HttpStatus.OK, true, "Fail", "Wrong old pass");
     }
-
+    
     @PostMapping(path = "/change-pass-forgot")
     public ResponseEntity<Object> changePasswordForgot(@RequestBody HashMap<String, Object> body) {
         int id = Integer.parseInt(body.get("id").toString());
@@ -261,4 +262,7 @@ public class StaffController {
         List<Staff> list = service.findStaffDepartment(department);
         return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request success", list);
     }
+
+    
+
 }

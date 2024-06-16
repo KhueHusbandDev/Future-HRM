@@ -3,20 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.controller;
+package com.example.demo;
 
 import com.example.demo.entities.Education;
 import com.example.demo.helpers.ResponseHandler;
 import com.example.demo.services.EducationService;
+import java.util.HashMap;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
+ *
  * @author Red
  */
 @RestController
@@ -93,7 +100,7 @@ public class EducationController {
         service.deleteEducation(id);
         return ResponseHandler.generateResponse(HttpStatus.OK, true, "Get data success", "Delete success");
     }
-
+    
     @GetMapping(path = "/check-education")
     public ResponseEntity<Object> checkEducation(@RequestParam String school, @RequestParam String field_of_study, @RequestParam int staff_id, @RequestParam int id) {
         List<Education> list = service.checkEducation(school, field_of_study, staff_id, id);

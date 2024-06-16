@@ -25,11 +25,11 @@ export const LoginForm = ({ onClose }) => {
   } = useForm();
 
   const onSubmit = async (userData) => {
-    // const data = await AuthService.login(userData);
-    // if (!data) {
-    //   toast.error("Login Failed");
-    //   return;
-    // }
+    const data = await AuthService.login(userData);
+    if (!data.data) {
+      toast.error("Login Failed");
+      return;
+    }
 
     const token = sign(userData, "secret");
     actions.setAccessToken(token);

@@ -5,23 +5,10 @@ import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Employee } from "../pages/employee/Employee";
 import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
-
-<<<<<<< Updated upstream
-import { ContractBody } from "../pages/contract/ContractBody";
-=======
-<<<<<<< Updated upstream
-// import { ContractBody } from "../pages/contract/ContractBody";
->>>>>>> Stashed changes
-
-
-=======
->>>>>>> Stashed changes
 import { Department } from "../pages/department/Department";
 import { Notifications } from "../pages/employee/Notifications";
+import { AddDepartment } from "../pages/department/components/AddDepartment";
 import { Holidays } from "../pages/holidays/Holidays";
-//  import { ViewDepartment, Viewdepartment } from "../pages/department/ViewDepartment";
-//  import { Link } from 'react-router-dom';
-
 import { AddEmployee } from "../pages/employee/AddEmployee";
 
 export const router = createBrowserRouter([
@@ -36,6 +23,25 @@ export const router = createBrowserRouter([
       { index: true, path: "/dashboard", element: <Dashboard /> },
       { path: "attendance", element: <AttendanceBody /> },
       { path: "department", element: <Department /> },
+      { path: "department/add", element: <AddDepartment /> },
+      {
+        path: "department",
+        element: (
+          <>
+            <Outlet />
+          </>
+        ),
+        children: [
+          {
+            index: true,
+            element: <Department />,
+          },
+          {
+            path: "add-new-department",
+            element: <AddDepartment />,
+          },
+        ],
+      },
       { path: "payroll", element: <PayrollBody /> },
       { path: "holidays", element: <Holidays /> },
       {
