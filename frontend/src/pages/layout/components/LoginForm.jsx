@@ -26,7 +26,7 @@ export const LoginForm = ({ onClose }) => {
 
   const onSubmit = async (userData) => {
     const data = await AuthService.login(userData);
-    if (!data) {
+    if (!data.data) {
       toast.error("Login Failed");
       return;
     }
