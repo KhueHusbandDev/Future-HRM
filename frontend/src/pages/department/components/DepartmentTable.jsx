@@ -8,80 +8,47 @@ import {
 } from "@tabler/icons-react";
 import { DataTable } from "mantine-datatable";
 
-export const DepartmentTable = () => {
-  const elements = [
-    {
-      id: 1,
-      departmentname: "IT",
-      vietnamese: "Cong Nghe Thong Tin",
-      status: true,
-    },
-    {
-      id: 2,
-      departmentname: "HR",
-      vietnamese: "Nhan Su",
-      status: true,
-    },
-    {
-      id: 3,
-      departmentname: "SALE",
-      vietnamese: "Kinh Doanh",
-      status: false,
-    },
-    {
-      id: 4,
-      departmentname: "Accountant",
-      vietnamese: "Ke Toan",
-      status: true,
-    },
-  ];
+export const DepartmentTable = ({ departments }) => {
 
+  console.log('Departments Data:', departments);
   const columns = [
     {
       accessor: "id",
       title: "ID",
-      render: (record) => {
-        return (
-          <div className="flex flex-row gap-2">
-            {/* <Avatar src="src/assets/Logo_Circle_FutureHRM.svg" /> */}
-            <span className="font-semibold">{record?.id || "-"}</span>
-          </div>
-        );
-      },
     },
     {
-      accessor: "departmentname",
+      accessor: "name",
       title: "Department Name",
     },
     {
-      accessor: "vietnamese",
+      accessor: "nameVn",
       title: "Vietnamese Name",
     },
     {
-      accessor: "status",
+      accessor: "del",
       title: "Status",
+      render: (record) => (record.del ? "Active" : "Inactive"),
     },
     {
       accessor: "#",
       title: "Actions",
       render: (record) => {
         return (
-          <>
-            <Group gap={4} justify="right" wrap="nowrap">
-             <ActionIcon size="sm" variant="subtle" color="black">
-                <IconEyeCheck size={16} />
-              </ActionIcon>
-              <ActionIcon size="sm" variant="subtle" color="black">
-                <IconEdit size={16} />
-              </ActionIcon>
-              <ActionIcon size="sm" variant="subtle" color="black">
-                <IconTrash size={16} />
-              </ActionIcon>
-            </Group>
-          </>
+          <Group gap={4} justify="right" wrap="nowrap">
+            <ActionIcon size="sm" variant="subtle" color="black">
+              <IconEyeCheck size={16} />
+            </ActionIcon>
+            <ActionIcon size="sm" variant="subtle" color="black">
+              <IconEdit size={16} />
+            </ActionIcon>
+            <ActionIcon size="sm" variant="subtle" color="black">
+              <IconTrash size={16} />
+            </ActionIcon>
+          </Group>
         );
       },
     },
   ];
-  return <DataTable columns={columns} records={elements} />;
+
+  return <DataTable columns={columns} records={departments} />;
 };

@@ -5,28 +5,39 @@
  */
 package com.example.demo.entities;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.Date;
 
 /**
+ *
  * @author Red
  */
 @Entity
 @Table(name = "check_in_out")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "CheckInOut.findAll", query = "SELECT c FROM CheckInOut c"),
-        @NamedQuery(name = "CheckInOut.findById", query = "SELECT c FROM CheckInOut c WHERE c.id = :id"),
-        @NamedQuery(name = "CheckInOut.findByStaffId", query = "SELECT c FROM CheckInOut c WHERE c.staffId = :staffId"),
-        @NamedQuery(name = "CheckInOut.findByStaffCode", query = "SELECT c FROM CheckInOut c WHERE c.staffCode = :staffCode"),
-        @NamedQuery(name = "CheckInOut.findByCheckInDay", query = "SELECT c FROM CheckInOut c WHERE c.checkInDay = :checkInDay"),
-        @NamedQuery(name = "CheckInOut.findByCheckInAt", query = "SELECT c FROM CheckInOut c WHERE c.checkInAt = :checkInAt"),
-        @NamedQuery(name = "CheckInOut.findByType", query = "SELECT c FROM CheckInOut c WHERE c.type = :type"),
-        @NamedQuery(name = "CheckInOut.findByImage", query = "SELECT c FROM CheckInOut c WHERE c.image = :image")})
+    @NamedQuery(name = "CheckInOut.findAll", query = "SELECT c FROM CheckInOut c"),
+    @NamedQuery(name = "CheckInOut.findById", query = "SELECT c FROM CheckInOut c WHERE c.id = :id"),
+    @NamedQuery(name = "CheckInOut.findByStaffId", query = "SELECT c FROM CheckInOut c WHERE c.staffId = :staffId"),
+    @NamedQuery(name = "CheckInOut.findByStaffCode", query = "SELECT c FROM CheckInOut c WHERE c.staffCode = :staffCode"),
+    @NamedQuery(name = "CheckInOut.findByCheckInDay", query = "SELECT c FROM CheckInOut c WHERE c.checkInDay = :checkInDay"),
+    @NamedQuery(name = "CheckInOut.findByCheckInAt", query = "SELECT c FROM CheckInOut c WHERE c.checkInAt = :checkInAt"),
+    @NamedQuery(name = "CheckInOut.findByType", query = "SELECT c FROM CheckInOut c WHERE c.type = :type"),
+    @NamedQuery(name = "CheckInOut.findByImage", query = "SELECT c FROM CheckInOut c WHERE c.image = :image")})
 public class CheckInOut implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,35 +46,29 @@ public class CheckInOut implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-
     @Basic(optional = false)
     @NotNull
     @Column(name = "staff_id")
     private int staffId;
-
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "staff_code")
     private String staffCode;
-
     @Basic(optional = false)
     @NotNull
     @Column(name = "check_in_day")
     @Temporal(TemporalType.DATE)
     private Date checkInDay;
-
     @Basic(optional = false)
     @NotNull
     @Column(name = "check_in_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkInAt;
-
     @Basic(optional = false)
     @NotNull
     @Column(name = "type")
     private boolean type;
-
     @Size(max = 255)
     @Column(name = "image")
     private String image;
@@ -72,7 +77,6 @@ public class CheckInOut implements Serializable {
     }
 
     public CheckInOut(Integer id) {
-
         this.id = id;
     }
 
@@ -155,12 +159,15 @@ public class CheckInOut implements Serializable {
             return false;
         }
         CheckInOut other = (CheckInOut) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
         return "com.example.demo.entities.CheckInOut[ id=" + id + " ]";
     }
-
+    
 }

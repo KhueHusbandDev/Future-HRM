@@ -7,6 +7,7 @@ import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
 import { Department } from "../pages/department/Department";
 import { Notifications } from "../pages/employee/Notifications";
+import { AddDepartment } from "../pages/department/components/AddDepartment";
 import { Holidays } from "../pages/holidays/Holidays";
 import { AddEmployee } from "../pages/employee/AddEmployee";
 
@@ -22,6 +23,25 @@ export const router = createBrowserRouter([
       { index: true, path: "/dashboard", element: <Dashboard /> },
       { path: "attendance", element: <AttendanceBody /> },
       { path: "department", element: <Department /> },
+      { path: "department/add", element: <AddDepartment /> },
+      {
+        path: "department",
+        element: (
+          <>
+            <Outlet />
+          </>
+        ),
+        children: [
+          {
+            index: true,
+            element: <Department />,
+          },
+          {
+            path: "add-new-department",
+            element: <AddDepartment />,
+          },
+        ],
+      },
       { path: "payroll", element: <PayrollBody /> },
       { path: "holidays", element: <Holidays /> },
       {

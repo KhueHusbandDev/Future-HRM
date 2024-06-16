@@ -3,26 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.controller;
+package com.example.demo;
 
 import com.example.demo.entities.Transfer;
 import com.example.demo.helpers.ResponseHandler;
 import com.example.demo.services.StaffService;
 import com.example.demo.services.TransferService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
+ *
  * @author Red
  */
 @RestController
@@ -31,7 +38,7 @@ public class TransferController {
 
     @Autowired
     private TransferService service;
-    private final StaffService staffService;
+    private StaffService staffService;
 
     private TransferController(TransferService service, StaffService staffService) {
         this.service = service;
@@ -72,7 +79,7 @@ public class TransferController {
             transfer.setNewManagerApproved(false);
             transfer.setManagerApproved(false);
             transfer.setHrApproved(Integer.parseInt(body.get("hr_approved").toString()));
-            transfer.setNewSalary(Double.parseDouble(body.get("new_salary").toString()));
+            transfer.setNewSalary(Double.parseDouble(body.get("new_salary").toString()));  
             transfer.setCreatedBy(Integer.parseInt(body.get("created_by").toString()));
             transfer.setNote(body.get("note").toString());
 //            transfer.setNoteManager(body.get("note_manager").toString());
@@ -104,19 +111,19 @@ public class TransferController {
         try {
             String note_manager = "";
             String note = "";
-            if (body.get("note_manager") != null) {
+            if(body.get("note_manager") != null){
                 note_manager = body.get("note_manager").toString();
             }
-            if (body.get("note") != null) {
+            if(body.get("note") != null){
                 note = body.get("note").toString();
             }
             service.updateTransfer(
                     Integer.parseInt(body.get("new_department").toString())
-                    , note
-                    , Integer.parseInt(body.get("hr_approved").toString())
-                    , Double.parseDouble(body.get("new_salary").toString())
-                    , note_manager
-                    , Integer.parseInt(body.get("id").toString()));
+                    ,note
+                    ,Integer.parseInt(body.get("hr_approved").toString())
+                    ,Double.parseDouble(body.get("new_salary").toString())
+                    ,note_manager
+                    ,Integer.parseInt(body.get("id").toString()));
             return ResponseHandler.generateResponse(HttpStatus.OK, true, "Update success", "Success");
         } catch (Exception e) {
             return ResponseHandler.generateResponse(HttpStatus.OK, true, "Update fail", e);
@@ -131,15 +138,15 @@ public class TransferController {
             service.newManagerApprove(id);
         } else if (department == 5) {
             service.managerApprove(id);
-            staffService.updateDepartment(transfer.get().getNewDepartment(), transfer.get().getStaffId());
-            return ResponseHandler.generateResponse(HttpStatus.OK, true, "Approve manager", "Staff changed department");
-
+                staffService.updateDepartment(transfer.get().getNewDepartment(), transfer.get().getStaffId());
+                return ResponseHandler.generateResponse(HttpStatus.OK, true, "Approve manager", "Staff changed department");
+            
         } else {
             service.oldManagerApprove(id);
         }
         return ResponseHandler.generateResponse(HttpStatus.OK, true, "Approve Success", "Approve Success");
     }
-
+    
     @GetMapping(path = "/getdelete")
     public ResponseEntity<Object> deleteTransfer(@RequestParam int id) {
         try {
@@ -148,5 +155,8 @@ public class TransferController {
         } catch (Exception e) {
             return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, e.getMessage(), false);
         }
+
     }
+
+    
 }

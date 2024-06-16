@@ -3,22 +3,44 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.controller;
+package com.example.demo;
 
-import com.example.demo.entities.*;
+import com.example.demo.entities.Contract;
+import com.example.demo.entities.Salary;
+import com.example.demo.entities.SalaryDetail;
+import com.example.demo.entities.TimeWorking;
 import com.example.demo.helpers.ResponseHandler;
-import com.example.demo.services.*;
+import com.example.demo.services.ContractService;
+import com.example.demo.services.SalaryDetailService;
+import com.example.demo.services.SalaryService;
+import com.example.demo.services.SpecialDateService;
+import com.example.demo.services.StaffService;
+import com.example.demo.services.TimeLeaveService;
+import com.example.demo.services.TimeSpecialService;
 import com.google.gson.Gson;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.example.demo.entities.Staff;
+import com.example.demo.services.LeaveOtherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
+ *
  * @author tonamson
  */
 @RestController
@@ -108,8 +130,8 @@ public class SalaryController {
 
     @PostMapping(path = "/update-status")
     public ResponseEntity<Object> updateStatusSalary(@RequestBody HashMap<String, String> body) {
-        int id = Integer.parseInt(body.get("id"));
-        String status = body.get("status");
+        int id = Integer.parseInt(body.get("id").toString());
+        String status = body.get("status").toString();
         boolean result = salaryService.updateStatus(id, status);
         if (result) {
             return ResponseHandler.generateResponse(HttpStatus.OK, true, "Thay đổi trạng thái thành công", true);
@@ -422,7 +444,7 @@ public class SalaryController {
                                 detail.put("paid_leave", true);
                             } else {
                                 int type = Integer.parseInt(item.get("type").toString());
-                                detail.put("paid_leave", paidLeaveId.contains(type));
+                                detail.put("paid_leave", paidLeaveId.contains(type) ? true : false);
                             }
                             detail.put("salary_per_day", salary_per_day);
                             detail.put("ot_hours", ot_hours); // thời gian OT thêm
@@ -496,7 +518,7 @@ public class SalaryController {
                                 detail.put("paid_leave", true);
                             } else {
                                 int type = Integer.parseInt(item.get("type").toString());
-                                detail.put("paid_leave", paidLeaveId.contains(type));
+                                detail.put("paid_leave", paidLeaveId.contains(type) ? true : false);
                             }
                             detail.put("salary_per_day", salary_per_day);
                             detail.put("ot_hours", ot_hours);
@@ -532,7 +554,7 @@ public class SalaryController {
         try {
             // truyền tháng vào để biết tháng đó bao nhiêu công
             // truyền staff_id để lấy hợp đồng của nhân viên đó
-            Contract contract = contractService.findOneByStaffId(staff_id, dateSqlFormat.format(date));
+            Contract contract = contractService.findOneByStaffId(staff_id, dateSqlFormat.format(date).toString());
             if (contract == null) {
                 return 0; // salary mỗi ngày sẽ là 0 nếu không tìm thấy contract
             }
@@ -548,7 +570,7 @@ public class SalaryController {
     }
 
     private Contract detailContract(int staff_id, Date date) {
-        return contractService.findOneByStaffId(staff_id, dateSqlFormat.format(date));
+        return contractService.findOneByStaffId(staff_id, dateSqlFormat.format(date).toString());
     }
 
     // đếm có bao nhiêu ngày thường không phải thứ 7 và chủ nhật
