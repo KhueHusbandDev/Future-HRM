@@ -1,31 +1,62 @@
 import 'dart:core';
 
+import 'package:hive/hive.dart';
+
+part 'staff.g.dart';
+
+@HiveType(typeId: 1)
 class Staff {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? code;
+  @HiveField(2)
   String? firstname;
+  @HiveField(3)
   String? lastname;
+  @HiveField(4)
   int? department;
+  @HiveField(5)
   bool? isManager;
+  @HiveField(6)
   DateTime? joinedAt;
+  @HiveField(7)
   DateTime? offDate;
+  @HiveField(8)
   DateTime? dob;
+  @HiveField(9)
   int? gender;
+  @HiveField(10)
   int? regional;
+  @HiveField(11)
   String? phoneNumber;
+  @HiveField(12)
   String? email;
+  @HiveField(13)
   String? password;
+  @HiveField(14)
   String? idNumber;
+  @HiveField(15)
   DateTime? identity_issue_date;
+  @HiveField(16)
   String? photo;
+  @HiveField(17)
   String? idPhoto;
+  @HiveField(18)
   String? idPhotoBack;
+  @HiveField(19)
   double? dayOfLeave;
+  @HiveField(20)
   String? note;
+  @HiveField(21)
   DateTime? createdAt;
+  @HiveField(22)
   int? createdBy;
+  @HiveField(23)
   DateTime? updatedAt;
+  @HiveField(24)
   int? updatedBy;
+  @HiveField(25)
   bool? status;
 
   Staff({

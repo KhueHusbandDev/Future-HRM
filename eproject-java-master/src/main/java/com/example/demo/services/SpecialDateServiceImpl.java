@@ -7,6 +7,12 @@ package com.example.demo.services;
 
 import com.example.demo.entities.SpecialDate;
 import com.example.demo.repositories.SpecialDateRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,29 +21,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
- *
  * @author Red
  */
 @Service
-public class SpecialDateServiceImpl implements SpecialDateService{
+public class SpecialDateServiceImpl implements SpecialDateService {
     @Autowired
     private SpecialDateRepository repository;
 
     @Autowired
     EntityManagerFactory emf;
-    
+
     @Override
     public List<SpecialDate> getAllSpecialDate(Date special_date_from) {
         return repository.findAll(special_date_from);
     }
-    
+
     @Override
     public void addSpecialDate(SpecialDate specialDate) {
         repository.save(specialDate);
@@ -47,7 +47,7 @@ public class SpecialDateServiceImpl implements SpecialDateService{
     public void deleteSpecialDate(int id) {
         repository.deleteById(id);
     }
-    
+
     @Override
     public SpecialDate findSpecialDate(int id) {
         return repository.findSpecialDate(id);
@@ -66,12 +66,12 @@ public class SpecialDateServiceImpl implements SpecialDateService{
         em.getTransaction().commit();
         em.close();
     }
-    
+
     @Override
     public void updateStaffOt(String string_staff_ot, int id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("UPDATE SpecialDate SET staff_ot = ?1 WHERE id = ?2")
+        Query query = em.createQuery("UPDATE SpecialDate SET staffOt = ?1 WHERE id = ?2")
                 .setParameter(1, string_staff_ot)
                 .setParameter(2, id);
         query.executeUpdate();
@@ -94,7 +94,7 @@ public class SpecialDateServiceImpl implements SpecialDateService{
     public ArrayList<Map<String, Object>> getRequestOT(Date special_date, int staff_request, int department_request) {
         return repository.GetRequestOT(special_date, staff_request, department_request);
     }
-    
+
     @Override
     public void approveOt(int is_approved, int id) {
         EntityManager em = emf.createEntityManager();
@@ -116,5 +116,5 @@ public class SpecialDateServiceImpl implements SpecialDateService{
     public ArrayList<Map<String, Object>> GetListSpecialDate(Date y_m) {
         return repository.GetListSpecialDate(y_m);
     }
-    
+
 }

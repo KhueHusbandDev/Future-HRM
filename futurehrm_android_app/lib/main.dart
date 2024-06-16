@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:futurehrm_android_app/page/login/login_page.dart';
+import 'package:futurehrm_android_app/helper/router.dart';
+import 'package:futurehrm_android_app/models/route_paths.dart';
+import 'package:futurehrm_android_app/models/staff.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(StaffAdapter());
+  Hive.openBox("Auth");
   runApp(const MyApp());
 }
 
@@ -32,7 +38,9 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      // home: LoginPage(),
+      initialRoute: RoutePaths.menuPage,
+      onGenerateRoute: RouterHelper.generateRoute,
     );
   }
 }
