@@ -1,7 +1,7 @@
 import { Button, Group, Paper } from "@mantine/core";
 import { IconAdjustments, IconPlus } from "@tabler/icons-react";
 import { SearchBar } from "../attendance/components/SearchBar";
-import { ViewDepartmentTable } from "./components/DepartmentTable";
+import { ViewDepartmentTable } from "./components/ViewDepartmentTable";
 
 export const ViewDepartment = () => {
   return (
