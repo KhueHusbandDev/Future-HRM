@@ -5,6 +5,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { FloatingDate } from "../../../components/FloatingDate";
 import { FloatingInput } from "../../../components/FloatingInput";
 import { FloatingSelect } from "../../../components/FloatingSelect";
+import {Dropzone} from "@mantine/dropzone";
 export const AddPersonalInfo = () => {
   const { register, control, setValue, watch } = useFormContext({
     mode: "onChange",
