@@ -7,29 +7,22 @@ package com.example.demo;
 
 import com.example.demo.entities.Staff;
 import com.example.demo.helpers.ResponseHandler;
-import java.util.List;
-
-//import com.sun.org.apache.bcel.internal.generic.ARETURN;
+import com.example.demo.services.StaffService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.services.StaffService;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 /**
  *
@@ -46,10 +39,39 @@ public class StaffController {
         this.service = service;
     }
 
+    public static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
+
     @GetMapping(path = "/list")
     public ResponseEntity<Object> list() {
         List<Staff> list = service.findAll();
         return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request success", list);
+    }
+
+    @GetMapping(path = "/login/{email}/{password}")
+    public ResponseEntity<Object> one(@PathVariable("email") String email, @PathVariable("password") String password) {
+        System.out.println("Login");
+        List<Staff> staffs = service.findAll();
+        for (Staff o : staffs) {
+            if (o.getEmail().equals(email) && o.getPassword().equals(getMD5Hash(password))) {
+                o.setPassword("");
+                return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request success", o);
+            }
+        }
+        return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request success", null);
+    }
+
+    public static String getMD5Hash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : messageDigest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping(path = "/one")
@@ -136,6 +158,48 @@ public class StaffController {
         } catch (Exception e) {
             return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, "Save fail", e.getMessage());
         }
+    }
+
+    @PostMapping(path = "/create-with-image", consumes = "multipart/form-data")
+    public ResponseEntity<Object> createStaff(@RequestPart("staff") String staffJson, @RequestParam("files") MultipartFile[] files) {
+        try {
+            Staff staff = new ObjectMapper().readValue(staffJson, Staff.class);
+            if (files.length != 3) {
+                return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, "Three files are required", null);
+            }
+            staff.setPhoto(uploadFile(files[0]));
+            staff.setIdPhoto(uploadFile(files[1]));
+            staff.setIdPhotoBack(uploadFile(files[2]));
+            Staff staff_data = service.save(staff);
+            return ResponseHandler.generateResponse(HttpStatus.OK, true, "Save success", staff_data);
+        } catch (IOException e) {
+            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, "Upload Fail", e.getMessage());
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, "Save fail", e.getMessage());
+        }
+    }
+
+    public String uploadFile(MultipartFile file) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            //đường dẫn đến thư mục static (src/main/resource/static)
+            Path pathStatic = Paths.get("static");
+            //đường dẫn đến thư mục images (src/main/resource/static/images)
+            Path pathImages = Paths.get("images");
+            if (!Files.exists(CURRENT_FOLDER.resolve(pathStatic))) {
+                Files.createDirectories(CURRENT_FOLDER.resolve(pathStatic));
+            }
+            if (!Files.exists(CURRENT_FOLDER.resolve(pathStatic).resolve(pathImages))) {
+                Files.createDirectories(CURRENT_FOLDER.resolve(pathStatic).resolve(pathImages));
+            }
+            Path path = CURRENT_FOLDER.resolve(pathStatic).resolve(pathImages).resolve(Objects.requireNonNull(file.getOriginalFilename()));
+
+            // copy image -> directory
+            try (OutputStream os = Files.newOutputStream(path)) {
+                os.write(file.getBytes());
+            }
+            return file.getOriginalFilename();
+        }
+        return null;
     }
 
     @GetMapping(path = "/get-profile")
