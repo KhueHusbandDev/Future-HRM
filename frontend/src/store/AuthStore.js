@@ -11,7 +11,7 @@ const REFRESH_TOKEN_KEY = "refreshToken";
 
 export const decodeAcessToken = (accessToken) => jwtDecode(accessToken);
 
-const authStore = create(
+const authStore = create()(
     persist((set, get) => ({
     accessToken: undefined,
     refressToken: undefined,

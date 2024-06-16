@@ -1,0 +1,16 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px; /* Adjust the gap between grid items as needed */
+    height: 100vh; /* Full height of the viewport */
+    padding: 10px;
+  }
+  
+  .grid-item {
+    border: 1px solid #ccc; /* Optional: for visual separation */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* Ensure content fits within the box */
+  }
+  

@@ -6,7 +6,7 @@ export const Logo = ({ w, h, isCircle = false }) => {
       src={
         isCircle
           ? "src/assets/Logo_Circle_FutureHRM.svg"
-          : "src/assets/LogoOnly_FutureHRM.svg"
+          : "src/assets/Logo-FutureHRM.svg"
       }
       h={w}
       w={h}
