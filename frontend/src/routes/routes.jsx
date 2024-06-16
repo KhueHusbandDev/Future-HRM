@@ -6,11 +6,9 @@ import { Employee } from "../pages/employee/Employee";
 import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
 import { Department } from "../pages/department/Department";
-import { Holidays } from "../pages/holidays/Holidays";
 import { Notifications } from "../pages/employee/Notifications";
 import { AddDepartment } from "../pages/department/components/AddDepartment";
-//  import { Link } from 'react-router-dom';
-
+import { Holidays } from "../pages/holidays/Holidays";
 import { AddEmployee } from "../pages/employee/AddEmployee";
 
 export const router = createBrowserRouter([
@@ -22,7 +20,7 @@ export const router = createBrowserRouter([
       </>
     ),
     children: [
-      { index: true, path: "dashboard", element: <Dashboard /> },
+      { index: true, path: "/dashboard", element: <Dashboard /> },
       { path: "attendance", element: <AttendanceBody /> },
       { path: "department", element: <Department /> },
       { path: "department/add", element: <AddDepartment /> },
@@ -46,9 +44,6 @@ export const router = createBrowserRouter([
       },
       { path: "payroll", element: <PayrollBody /> },
       { path: "holidays", element: <Holidays /> },
-      { path: "employee", element: <Employee /> },
-      { path: "employee/add", element: <AddEmployee /> },
-      { path: "holidays", element: <AttendanceBody /> },
       {
         path: "employee",
         element: (
@@ -65,14 +60,14 @@ export const router = createBrowserRouter([
             path: "add-new-employee",
             element: <AddEmployee />,
           },
+          {
+            path: "notifications",
+            element: <Notifications />,
+          },
         ],
       },
-
       { path: "leaves", element: <AttendanceBody /> },
-      { path:"contracts",element:<ContractBody/>},
-      { path: "employee/notifications", element: <Notifications/>},
       { path: "contracts", element: <ContractBody /> },
-      { path: "login", element: <h2>You are not Login</h2> },
     ],
   },
 ]);
