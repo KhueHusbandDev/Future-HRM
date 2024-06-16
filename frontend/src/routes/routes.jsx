@@ -6,7 +6,7 @@ import { Employee } from "../pages/employee/Employee";
 import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
 
-import { ContractBody } from "../pages/contract/ContractBody";
+// import { ContractBody } from "../pages/contract/ContractBody";
 
 
 import { Department } from "../pages/department/Department";

@@ -3,24 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.controller;
+package com.example.demo;
 
 import com.example.demo.entities.Contract;
 import com.example.demo.helpers.ResponseHandler;
-import com.example.demo.services.IContractService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.services.IContractService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
+ *
  * @author tonamson
  */
 @RestController
@@ -32,12 +37,6 @@ public class ContractController {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    @GetMapping(path = "")
-    public ResponseEntity<Object> findAll() {
-        List<Contract> data = contractService.findAll();
-        return ResponseHandler.generateResponse(HttpStatus.OK, true, "Gửi yêu cầu thành công", data);
-    }
 
     @GetMapping(path = "/list")
     public ResponseEntity<Object> listContract(@RequestParam boolean del) {

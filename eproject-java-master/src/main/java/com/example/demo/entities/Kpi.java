@@ -5,31 +5,41 @@
  */
 package com.example.demo.entities;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.Date;
 
 /**
+ *
  * @author Red
  */
 @Entity
 @Table(name = "kpi")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Kpi.findAll", query = "SELECT k FROM Kpi k"),
-        @NamedQuery(name = "Kpi.findById", query = "SELECT k FROM Kpi k WHERE k.id = :id"),
-        @NamedQuery(name = "Kpi.findByStaffId", query = "SELECT k FROM Kpi k WHERE k.staffId = :staffId"),
-        @NamedQuery(name = "Kpi.findByDepartmentId", query = "SELECT k FROM Kpi k WHERE k.departmentId = :departmentId"),
-        @NamedQuery(name = "Kpi.findByKpiName", query = "SELECT k FROM Kpi k WHERE k.kpiName = :kpiName"),
-        @NamedQuery(name = "Kpi.findByCreatedAt", query = "SELECT k FROM Kpi k WHERE k.createdAt = :createdAt"),
-        @NamedQuery(name = "Kpi.findByUpdateAt", query = "SELECT k FROM Kpi k WHERE k.updateAt = :updateAt"),
-        @NamedQuery(name = "Kpi.findByIsApproved", query = "SELECT k FROM Kpi k WHERE k.isApproved = :isApproved"),
-        @NamedQuery(name = "Kpi.findByApprovedBy", query = "SELECT k FROM Kpi k WHERE k.approvedBy = :approvedBy"),
-        @NamedQuery(name = "Kpi.findByDel", query = "SELECT k FROM Kpi k WHERE k.del = :del"),
-})
+    @NamedQuery(name = "Kpi.findAll", query = "SELECT k FROM Kpi k"),
+    @NamedQuery(name = "Kpi.findById", query = "SELECT k FROM Kpi k WHERE k.id = :id"),
+    @NamedQuery(name = "Kpi.findByStaffId", query = "SELECT k FROM Kpi k WHERE k.staffId = :staffId"),
+    @NamedQuery(name = "Kpi.findByDepartmentId", query = "SELECT k FROM Kpi k WHERE k.departmentId = :departmentId"),
+    @NamedQuery(name = "Kpi.findByKpiName", query = "SELECT k FROM Kpi k WHERE k.kpiName = :kpiName"),
+    @NamedQuery(name = "Kpi.findByCreatedAt", query = "SELECT k FROM Kpi k WHERE k.createdAt = :createdAt"),
+    @NamedQuery(name = "Kpi.findByUpdateAt", query = "SELECT k FROM Kpi k WHERE k.updateAt = :updateAt"),
+    @NamedQuery(name = "Kpi.findByIsApproved", query = "SELECT k FROM Kpi k WHERE k.isApproved = :isApproved"),
+    @NamedQuery(name = "Kpi.findByApprovedBy", query = "SELECT k FROM Kpi k WHERE k.approvedBy = :approvedBy"),
+    @NamedQuery(name = "Kpi.findByDel", query = "SELECT k FROM Kpi k WHERE k.del = :del")})
 public class Kpi implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -159,12 +169,15 @@ public class Kpi implements Serializable {
             return false;
         }
         Kpi other = (Kpi) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
         return "com.example.demo.entities.Kpi[ id=" + id + " ]";
     }
-
+    
 }

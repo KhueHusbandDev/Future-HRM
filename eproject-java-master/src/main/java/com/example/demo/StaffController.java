@@ -3,23 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.controller;
+package com.example.demo;
 
 import com.example.demo.entities.Staff;
 import com.example.demo.helpers.ResponseHandler;
-import com.example.demo.services.StaffService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.services.StaffService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author nguyenngocanhtam
+ *
+ * @author Hai Anh
  */
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/staff") // This means URL's start with /demo (after Application path)
@@ -110,11 +123,11 @@ public class StaffController {
     @PostMapping(path = "/update")
     public ResponseEntity<Object> updateDepartment(@RequestBody Staff staff) {
         try {
-            if (!service.checkEmail(staff.getEmail(), staff.getId())) {
+            if(service.checkEmail(staff.getEmail(), staff.getId()) == false) {
                 return ResponseHandler.generateResponse(HttpStatus.OK, true, "Duplicate email", true);
             }
-
-            if (!service.checkIdNumber(staff.getIdNumber(), staff.getId())) {
+            
+            if(service.checkIdNumber(staff.getIdNumber(), staff.getId()) == false) {
                 return ResponseHandler.generateResponse(HttpStatus.OK, true, "Duplicate id number", true);
             }
             service.editStaff(staff);
@@ -169,7 +182,7 @@ public class StaffController {
 
         return ResponseHandler.generateResponse(HttpStatus.OK, true, "Fail", "Wrong old pass");
     }
-
+    
     @PostMapping(path = "/change-pass-forgot")
     public ResponseEntity<Object> changePasswordForgot(@RequestBody HashMap<String, Object> body) {
         int id = Integer.parseInt(body.get("id").toString());
