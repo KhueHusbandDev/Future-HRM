@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:futurehrm_android_app/models/ApiService.dart';
 import 'package:futurehrm_android_app/models/response_data.dart';
 import 'package:futurehrm_android_app/models/route_paths.dart';
 import 'package:futurehrm_android_app/models/server_connector.dart';
 import 'package:futurehrm_android_app/models/staff.dart';
 import 'package:hive/hive.dart';
-import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   static String routeName = "/login";
@@ -36,16 +36,11 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       String url = '${ServerConnector.baseUrl}/staff/login/$email/$password';
-      var response = await http
-          .get(Uri.parse(url), headers: {"mode": "no-cors", "method": "GET"});
+      var response = await ApiService.get("staff/login/$email/$password");
       print("Login Success 1");
-      if (response.statusCode == 200) {
-        final parsed = ResponseData.fromMap(json.decode(response.body));
-        if (parsed.data != null) {
-          Staff stf = Staff.fromMap(parsed.data!);
-          if (authBox.get("CurrentAuth") != null) {
-            authBox.clear();
-          }
+      if (response.status == 200) {
+        if (response.data != null) {
+          Staff stf = Staff.fromMap(response.data!);
           authBox.put("CurrentAuth", stf);
 
           print("Login Success");
@@ -163,10 +158,11 @@ class _LoginPageState extends State<LoginPage> {
                               backgroundColor: Colors.orange,
                             ),
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _login(_emailController.text,
-                                    _passwordController.text);
-                              }
+                              _login("dthung6604@gmail.com", "123456");
+                              // if (_formKey.currentState!.validate()) {
+                              //   _login(_emailController.text,
+                              //       _passwordController.text);
+                              // }
                             },
                             child: const Text(
                               'Log in',

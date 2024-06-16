@@ -4,10 +4,7 @@ import { configApi } from "../../api/config";
 export class AuthService {
   static login = async (userData) => {
     try {
-      const { data } = await fetch(`http://localhost:8080/staff/login/${userData.email}/${userData.password}`, {
-        mode: "no-cors",
-        method: "GET"
-      });
+      const { data } = await configApi.get(`http://localhost:8080/staff/login/${userData.email}/${userData.password}`);
       return data;
     } catch (error) {
       if (error) {

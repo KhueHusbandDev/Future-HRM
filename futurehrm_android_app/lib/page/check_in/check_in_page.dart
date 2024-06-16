@@ -10,6 +10,10 @@ class CheckInPage extends StatefulWidget {
 }
 
 class _CheckInPageState extends State<CheckInPage> {
+  String _formatMDY(DateTime date) {
+    return "${date.month}-${date.day}-${date.year}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +26,58 @@ class _CheckInPageState extends State<CheckInPage> {
         //   },
         // ),
       ),
-      body: Text("This Is Check In/Out Page"),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(5),
+          child: Column(
+            children: [
+              Container(
+                width: 500,
+                child: Card(
+                  color: Color.fromRGBO(247, 150, 30, 1),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 450,
+                        height: 200,
+                        child: Card(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Today is ${_formatMDY(DateTime.now())}",
+                              style: TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(),
+                            child: Text("Check In"),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(),
+                            child: Text("Check Out"),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Text("Check In Out History"),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

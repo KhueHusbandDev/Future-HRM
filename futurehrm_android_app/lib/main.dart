@@ -5,9 +5,11 @@ import 'package:futurehrm_android_app/models/staff.dart';
 import 'package:hive_flutter/adapters.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(StaffAdapter());
-  Hive.openBox("Auth");
+  await Hive.openBox(
+      "Auth"); // Ensure the box is fully opened before running the app
   runApp(const MyApp());
 }
 
