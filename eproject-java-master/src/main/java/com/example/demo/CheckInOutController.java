@@ -79,4 +79,10 @@ public class CheckInOutController {
         ArrayList abc = service.getStaffTime(staff_id, y_m);
         return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request success", abc);
     }
+
+    @PostMapping(path = "/check-check-in")
+    public ResponseEntity<Object> checkCheckIn(@RequestBody HashMap<String, Object> body) {
+        int type = service.checkCheckIn2(Integer.parseInt(body.get("staff_id").toString()), body.get("check_in_day").toString());
+        return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request Success", type);
+    }
 }

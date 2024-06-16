@@ -9,7 +9,7 @@ class RouterHelper {
     switch (settings.name) {
       case RoutePaths.start:
         return MaterialPageRoute(
-          builder: (_) => LoginPage(),
+          builder: (_) => MenuPage(),
         );
       case RoutePaths.loginPage:
         // you can do things like pass arguments to screens
@@ -26,7 +26,7 @@ class RouterHelper {
       case RoutePaths.checkInPage:
         // you can do things like pass arguments to screens
         return MaterialPageRoute(
-          builder: (_) => CheckInPage(),
+          builder: (_) => const CheckInPage(),
         );
 
       default:
