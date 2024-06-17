@@ -17,13 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -105,6 +99,19 @@ public class DepartmentController {
             return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, e.getMessage(), false);
         }
 
+    }
+
+    @Autowired
+    private DepartmentService departmentService;
+
+    @PutMapping("/updateDelStatus")
+    public ResponseEntity<Object> updateDelStatus(@RequestParam int id, @RequestParam boolean del) {
+        try {
+            departmentService.setDelDepartment(id, del);
+            return ResponseHandler.generateResponse(HttpStatus.OK, true, "Cập nhật trạng thái thành công", true);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, e.getMessage(), false);
+        }
     }
 
     @GetMapping(path = "/undo")
