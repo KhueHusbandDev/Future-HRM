@@ -5,9 +5,7 @@ import { DepartmentTable } from "./components/DepartmentTable";
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-
-
+import {AddDepartment} from '../department/components/AddDepartment';
 
 export const Department = () => {
   const [departments, setDepartments] = useState([]);
@@ -47,19 +45,6 @@ export const Department = () => {
     </a>
   ));
 
-  //h2
-  const handleAddDepartment = async (formData) => {
-    try {
-      const response = await axios.post('http://localhost:8080/department/add', formData);
-      if (response.data.isSuccess) {
-        fetchDepartments(); // Refresh departments list after successful addition
-      } else {
-        console.error('Failed to add department');
-      }
-    } catch (error) {
-      console.error('Error adding department:', error);
-    }
-  };
   return (
     <>
       <Paper className="flex flex-col flex-nowrap w-full h-full border-solid border border-slate-200 rounded-md p-4 gap-8">

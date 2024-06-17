@@ -1,119 +1,74 @@
-import { ActionIcon, Avatar, Group } from "@mantine/core";
-import {
-  IconEdit,
-  IconEye,
-  IconEyeCheck,
-  IconEyeEdit,
-  IconTrash,
-} from "@tabler/icons-react";
-import { DataTable } from "mantine-datatable";
+import { ActionIcon, Avatar, Group ,Paper, Button} from "@mantine/core";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { IconPlus } from '@tabler/icons-react';
 
 export const AddDepartment = () => {
-  const elements = [
-    {
-      id: 1,
-      name: "Nguyen Van A",
-      designation: "CEO",
-      type: "Office",
-      checkInTime: "12:00 AM",
-      status: true,
-    },
-    {
-      id: 2,
-      name: "Nguyen Van B",
-      designation: "Manager",
-      type: "Office",
-      checkInTime: "12:00 AM",
-      status: true,
-    },
-    {
-      id: 3,
-      name: "Nguyen Van C",
-      designation: "IT",
-      type: "Remote",
-      checkInTime: "12:00 AM",
-      status: false,
-    },
-    {
-      id: 4,
-      name: "Nguyen Van D",
-      designation: "Tester",
-      type: "Remote",
-      checkInTime: "12:00 AM",
-      status: true,
-    },
-    {
-      id: 5,
-      name: "Nguyen Van E",
-      designation: "HR",
-      type: "Office",
-      checkInTime: "12:00 AM",
-      status: false,
-    },
-    {
-      id: 6,
-      name: "Nguyen Van F",
-      designation: "Security",
-      type: "Remote",
-      checkInTime: "12:00 AM",
-      status: true,
-    },
-  ];
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [nameVn, setNameVn] = useState('');
 
-  const columns = [
-    {
-      accessor: "id",
-      title: "Employee ID",
-      render: (record) => {
-        return (
-          <div className="flex flex-row gap-2">
-            {/* <Avatar src="src/assets/Logo_Circle_FutureHRM.svg" /> */}
-            <span className="font-semibold">{record?.id || "-"}</span>
-          </div>
-        );
-      },
-    },
-    // {
-    //   accessor: "id",
-    //   title: "Employee ID",
-    // },
-    {
-      accessor: "name",
-      title: "Employee Name",
-    },
-    {
-      accessor: "designation",
-      title: "Designation",
-    },
-    {
-      accessor: "type",
-      title: "Type",
-    },
-    {
-      accessor: "status",
-      title: "Status",
-    },
-    {
-      accessor: "#",
-      title: "Actions",
-      render: (record) => {
-        return (
-          <>
-            <Group gap={4} justify="right" wrap="nowrap">
-              <ActionIcon size="sm" variant="subtle" color="black">
-                <IconEyeCheck size={16} />
-              </ActionIcon>
-              <ActionIcon size="sm" variant="subtle" color="black">
-                <IconEdit size={16} />
-              </ActionIcon>
-              <ActionIcon size="sm" variant="subtle" color="black">
-                <IconTrash size={16} />
-              </ActionIcon>
-            </Group>
-          </>
-        );
-      },
-    },
-  ];
-  return <DataTable columns={columns} records={elements} />;
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/department/add', {
+        name,
+        nameVn,
+        del: false // Giả định "del" mặc định là false cho một Phòng Ban mới
+      });
+      console.log('Phòng Ban mới được tạo:', response.data);
+      navigate('/department'); // Chuyển hướng đến trang danh sách Phòng Ban
+    } catch (error) {
+      console.error('Lỗi khi tạo Phòng Ban mới:', error);
+    }
+  };
+
+  return (
+    // <NotificationsProvider>
+    <Paper className="p-4 max-w-lg mx-auto">
+      <form onSubmit={handleFormSubmit} >
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            Department Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="nameVn" className="block text-sm font-medium text-gray-700">
+            Vietnamese Name
+          </label>
+          <input
+            type="text"
+            id="nameVn"
+            name="nameVn"
+            value={nameVn}
+            onChange={(e) => setNameVn(e.target.value)}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            className="text-white bg-indigo-500 rounded-md"
+            leftSection={<IconPlus />}
+          >
+            Add Department
+          </Button>
+        </div>
+      </form>
+    </Paper>
+    //  {/* </NotificationsProvider> */}
+  );
 };
+
+export default AddDepartment;

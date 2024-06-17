@@ -10,7 +10,7 @@ import { Holidays } from "../pages/holidays/Holidays";
 import { Notifications } from "../pages/employee/Notifications";
 import { AddDepartment } from "../pages/department/components/AddDepartment";
 //  import { Link } from 'react-router-dom';
-
+import { UpdateDepartment } from "../pages/department/components/UpdateDepartment";
 import { AddEmployee } from "../pages/employee/AddEmployee";
 
 export const router = createBrowserRouter([
@@ -26,6 +26,8 @@ export const router = createBrowserRouter([
       { path: "attendance", element: <AttendanceBody /> },
       { path: "department", element: <Department /> },
       { path: "department/add", element: <AddDepartment /> },
+      { path: "department/update", element: <UpdateDepartment /> },
+
       {
         path: "department",
         element: (
@@ -42,8 +44,15 @@ export const router = createBrowserRouter([
             path: "add-new-department",
             element: <AddDepartment />,
           },
+          {
+            path: "update-department",
+            element: <UpdateDepartment />,
+          },
         ],
       },
+     
+     
+
       { path: "payroll", element: <PayrollBody /> },
       { path: "holidays", element: <Holidays /> },
       { path: "employee", element: <Employee /> },
@@ -77,14 +86,4 @@ export const router = createBrowserRouter([
   },
 ]);
 
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/viewdepartment" element={<ViewDepartment />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
 
-// export default App;
