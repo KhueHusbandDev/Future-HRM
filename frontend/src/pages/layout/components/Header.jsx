@@ -48,14 +48,6 @@ export const Header = ({ isNavBarOpen, onOpenNavBar }) => {
           >
             Log in
           </Button>
-          <Button
-            onClick={() => {
-              openDrawer();
-              setIsLogin(false);
-            }}
-          >
-            Sign up
-          </Button>
         </Group>
       )}
 

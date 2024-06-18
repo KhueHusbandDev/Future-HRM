@@ -1,9 +1,14 @@
 import { NavLink } from "@mantine/core";
-import { navItems } from "../NavItem";
-import { memo, useState } from "react";
 
+import { memo, useState } from "react";
+import { useAccessTokenData } from "../../../store/AuthStore";
+import { adminNavItems, staffNavItems } from "../NavItem";
 export const Nav = () => {
   const [active, setActive] = useState();
+  const tokenData = useAccessTokenData();
+
+  let navItems;
+  tokenData.isManager ? (navItems = adminNavItems) : (navItems = staffNavItems);
 
   const links = navItems.map((item, index) => (
     <NavLink

@@ -7,6 +7,10 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { DataTable } from "mantine-datatable";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { configApi } from "../../../api/config";
+import { toast } from "sonner";
 
 export const EmployeeTable = () => {
   const elements = [
@@ -59,16 +63,39 @@ export const EmployeeTable = () => {
       status: true,
     },
   ];
+  const navigate = useNavigate();
+  const handleOnRowClick = (record) => {
+    navigate(`update-employee/${record.record.id}`, {state: {
+      employeeId: record.record.id,
+    }});
+  };
+
+  const [listEmployee, setListEmployee] = useState([]);
+  console.log('listEmployee: ', listEmployee);
+
+  const getListEmployee = async () => {
+     await configApi.get("/staff/list").then(rs => {
+      console.log('rs: ', rs);
+    if(!rs?.data) {
+      toast.error('Cannot get list employee');
+    }
+    setListEmployee(rs.data.data);
+    })
+  }
+  useEffect(()=>{
+      getListEmployee();
+  }, [])
 
   const columns = [
     {
-      accessor: "name",
+      accessor: "#combine-name",
       title: "Employee Name",
       render: (record) => {
+        console.log('record: ', record);
         return (
           <div className="flex flex-row gap-2">
-            <Avatar src="src/assets/Logo_Circle_FutureHRM.svg" />
-            <span className="font-semibold">{record?.name || "-"}</span>
+            <Avatar src={`http://localhost:8080/static/images/${record.idPhoto}`} />
+            <span className="font-semibold">{`${record?.firstname} ${record?.lastname}` || "-"}</span>
           </div>
         );
       },
@@ -115,5 +142,5 @@ export const EmployeeTable = () => {
       },
     },
   ];
-  return <DataTable columns={columns} records={elements} />;
+  return <DataTable columns={columns} records={listEmployee} onRowClick={handleOnRowClick} />;
 };

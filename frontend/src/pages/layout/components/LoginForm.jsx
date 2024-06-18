@@ -31,10 +31,10 @@ export const LoginForm = ({ onClose }) => {
       return;
     }
 
-    const token = sign(userData, "secret");
+    const token = sign(data.data, "secret");
     actions.setAccessToken(token);
     toast.success("Login Success");
-    navigate("/dashboard");
+    data.data.isManager ? navigate("/admin/dashboard") : navigate("/staff/dashboard");
     onClose();
   };
 

@@ -1,8 +1,7 @@
 import { Drawer } from "@mantine/core";
 import { LoginForm } from "./LoginForm";
-import { ResgisterForm } from "./RegisterForm";
 
-export const AuthDrawer = ({ opened, onOpen, onClose, isLogin }) => {
+export const AuthDrawer = ({ opened, onClose }) => {
   return (
     <Drawer
       opened={opened}
@@ -12,7 +11,7 @@ export const AuthDrawer = ({ opened, onOpen, onClose, isLogin }) => {
       }
       position={"right"}
     >
-      {isLogin ? <LoginForm onClose={onClose} /> : <ResgisterForm onClose={onClose}/>}
+     <LoginForm onClose={onClose} />
     </Drawer>
   );
 };
