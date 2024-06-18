@@ -31,7 +31,7 @@ export const LoginForm = ({ onClose }) => {
       return;
     }
 
-    const token = sign(data, "secret");
+    const token = sign(userData, "secret");
     actions.setAccessToken(token);
     toast.success("Login Success");
     navigate("/dashboard");

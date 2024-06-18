@@ -7,10 +7,10 @@ import {
   PasswordInput,
   TextInput,
 } from "@mantine/core";
+import { Fragment } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Logo } from "./Logo";
-import { Fragment } from "react";
-export const ResgisterForm = ({onClose}) => {
+export const ResgisterForm = ({ onClose }) => {
   const {
     register,
     handleSubmit,
@@ -82,17 +82,6 @@ export const ResgisterForm = ({onClose}) => {
           );
         }}
       />
-      <Group justify="flex-end">
-        <Anchor
-          href="#"
-          onClick={(event) => event.preventDefault()}
-          pt={2}
-          fw={500}
-          fz="xs"
-        >
-          Forgot your password?
-        </Anchor>
-      </Group>
       <Button className="rounded-lg h-14" fullWidth type="submit">
         Register
       </Button>
