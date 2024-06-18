@@ -1,11 +1,11 @@
 import { ActionIcon, Group, Image, Text } from "@mantine/core";
-import { Dropzone } from "@mantine/dropzone";
 import { IconCamera, IconPhoto, IconUpload, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { FloatingDate } from "../../../components/FloatingDate";
 import { FloatingInput } from "../../../components/FloatingInput";
 import { FloatingSelect } from "../../../components/FloatingSelect";
+import {Dropzone} from "@mantine/dropzone";
 export const AddPersonalInfo = () => {
   const { register, control, setValue, watch } = useFormContext({
     mode: "onChange",
