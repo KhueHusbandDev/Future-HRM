@@ -4,14 +4,15 @@ import { ContractBody } from "../pages/contract/ContractBody";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Department } from "../pages/department/Department";
 import { AddDepartment } from "../pages/department/components/AddDepartment";
+import { UpdateDepartment } from "../pages/department/components/UpdateDepartment";
+import { Holidays } from "../pages/holidays/Holidays";
 import { AddEmployee } from "../pages/employee/AddEmployee";
 import { Employee } from "../pages/employee/Employee";
 import { Notifications } from "../pages/employee/Notifications";
-import { Holidays } from "../pages/holidays/Holidays";
 import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
 
-export const router = createBrowserRouter([
+export const routesadar = createBrowserRouter([
   {
     path: "/",
     element: (
@@ -45,8 +46,11 @@ export const router = createBrowserRouter([
                 element: <Department />,
               },
               {
-                path: "add-new-department",
+                path: "add",
                 element: <AddDepartment />,
+              },
+              { path: "update", 
+               element: <UpdateDepartment /> 
               },
             ],
           },
@@ -107,14 +111,4 @@ export const router = createBrowserRouter([
   },
 ]);
 
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/viewdepartment" element={<ViewDepartment />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
 
-// export default App;
