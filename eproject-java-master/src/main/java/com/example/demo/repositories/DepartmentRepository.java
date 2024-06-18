@@ -22,7 +22,7 @@ public interface DepartmentRepository extends CrudRepository<Department, Integer
     @Query(value = "SELECT * FROM department WHERE name like ?1", nativeQuery = true)
     List<Department> findByLikeName(String firstname);
 
-    @Query(value = "SELECT * FROM Department WHERE id = ?1", nativeQuery = true)
+    @Query(value = "SELECT o FROM Department o WHERE o.id = ?1")
     Department findOne(int id);
 
     @Query(value = "SELECT * FROM department WHERE del =0", nativeQuery = true)

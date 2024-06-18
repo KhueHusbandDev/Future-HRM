@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futurehrm_android_app/models/route_paths.dart';
+import 'package:futurehrm_android_app/page/attendance/attendance_page.dart';
 import 'package:futurehrm_android_app/page/check_in/check_in_page.dart';
 import 'package:futurehrm_android_app/page/login/login_page.dart';
 import 'package:futurehrm_android_app/page/menu_page.dart';
@@ -27,6 +28,11 @@ class RouterHelper {
         // you can do things like pass arguments to screens
         return MaterialPageRoute(
           builder: (_) => const CheckInPage(),
+        );
+      case RoutePaths.attendancePage:
+        // you can do things like pass arguments to screens
+        return MaterialPageRoute(
+          builder: (_) => AttendancePage(),
         );
 
       default:

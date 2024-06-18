@@ -113,7 +113,7 @@ public class TimeLeaveController {
             Date day_time_leave = new SimpleDateFormat("yyyy-MM-dd").parse(body.get("day_time_leave").toString());
             Date time_leave = new SimpleDateFormat("HH:mm:ss").parse(body.get("time").toString());
 
-            if (!checkInOutService.checkCheckIn(Integer.parseInt(body.get("staff_id").toString()), body.get("day_time_leave").toString())) {
+            if (checkInOutService.checkCheckIn(Integer.parseInt(body.get("staff_id").toString()), body.get("day_time_leave").toString())) {
                 return ResponseHandler.generateResponse(HttpStatus.OK, true, "Save fail", "Added time");
             }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:futurehrm_android_app/models/ApiService.dart';
 import 'package:futurehrm_android_app/models/route_paths.dart';
 import 'package:futurehrm_android_app/models/staff.dart';
 import 'package:hive/hive.dart';
@@ -13,12 +14,14 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late Future<Staff?> authFuture;
   var actions = [
     {"name": "Check In", "image": "none", "path": RoutePaths.checkInPage},
-    {"name": "Attendance", "image": "none", "path": "/attendance"},
+    {"name": "Attendance", "image": "none", "path": RoutePaths.attendancePage},
     {"name": "Payroll", "image": "none", "path": "/payroll"},
     {"name": "Request Leave", "image": "none", "path": "/request-leave"},
+    {"name": "Logout", "image": "none", "path": RoutePaths.loginPage},
   ];
 
   @override
@@ -38,7 +41,7 @@ class _MenuPageState extends State<MenuPage> {
       future: authFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
@@ -48,7 +51,7 @@ class _MenuPageState extends State<MenuPage> {
         if (!snapshot.hasData || snapshot.data?.id == null) {
           Future.microtask(
               () => Navigator.pushNamed(context, RoutePaths.loginPage));
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
@@ -58,10 +61,17 @@ class _MenuPageState extends State<MenuPage> {
         Staff currentAuth = snapshot.data!;
 
         return Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             title: const Text("Menu"),
-            leading: Container(),
-            leadingWidth: 20,
+            leading: IconButton(
+              icon: const Icon(Icons.menu),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              onPressed: () {
+                _scaffoldKey.currentState?.openDrawer();
+              },
+            ),
+            leadingWidth: 56, // Adjust this value as needed
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -89,7 +99,7 @@ class _MenuPageState extends State<MenuPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              subtitle: Text("How are you today ?"),
+                              subtitle: const Text("How are you today ?"),
                             ),
                           ),
                         ),
@@ -122,7 +132,7 @@ class _MenuPageState extends State<MenuPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        elevation: 1,
+                        elevation: 3,
                         child: InkWell(
                           child: Center(
                             child: Text(item["name"]!),
@@ -140,6 +150,41 @@ class _MenuPageState extends State<MenuPage> {
                   ),
                 ],
               ),
+            ),
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                  ),
+                  accountName:
+                      Text("${currentAuth.firstname} ${currentAuth.lastname}"),
+                  accountEmail: Text("${currentAuth.email}"),
+                  currentAccountPicture: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      "${ApiService.baseUrl}/static/images/${currentAuth.photo}",
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text('Profile'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Logout'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
           ),
         );

@@ -43,19 +43,29 @@ public class CheckInOutImpl implements CheckInOutService {
         } catch (ParseException ex) {
             Logger.getLogger(CheckInOutImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return true;
     }
 
     @Override
-    public int checkCheckIn2(int staff_id, String check_in_day) {
+    public CheckInOut checkCheckIn2(int staff_id, String check_in_day) {
         try {
             Date date_check_in_day = new SimpleDateFormat("yyyy-MM-dd").parse(check_in_day);
-            CheckInOut check_check_in_out = repository.checkCheckIn(staff_id, date_check_in_day);
-            return check_check_in_out == null ? -1 : (check_check_in_out.getType() ? 1 : 0);
+            return repository.checkCheckIn2(staff_id, date_check_in_day);
         } catch (ParseException ex) {
             Logger.getLogger(CheckInOutImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return -1;
+        return null;
+    }
+
+    @Override
+    public CheckInOut checkCheckOut(int staff_id, String check_in_day) {
+        try {
+            Date date_check_in_day = new SimpleDateFormat("yyyy-MM-dd").parse(check_in_day);
+            return repository.checkCheckOut(staff_id, date_check_in_day);
+        } catch (ParseException ex) {
+            Logger.getLogger(CheckInOutImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override

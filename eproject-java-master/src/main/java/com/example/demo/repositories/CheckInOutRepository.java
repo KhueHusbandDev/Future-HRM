@@ -20,6 +20,12 @@ public interface CheckInOutRepository extends CrudRepository<CheckInOut, Integer
     @Query(value = "SELECT o FROM CheckInOut o WHERE o.staffId = ?1 and o.checkInDay = ?2")
     CheckInOut checkCheckIn(Integer staff_id, Date check_in_day);
 
+    @Query(value = "SELECT o FROM CheckInOut o WHERE o.staffId = ?1 and o.checkInDay = ?2 and o.type=false")
+    CheckInOut checkCheckIn2(Integer staff_id, Date check_in_day);
+
+    @Query(value = "SELECT o FROM CheckInOut o WHERE o.staffId = ?1 and o.checkInDay = ?2 and o.type=true")
+    CheckInOut checkCheckOut(Integer staff_id, Date check_in_day);
+
     @Query(value = "SELECT * FROM check_in_out WHERE staff_id = ?1 and check_in_day BETWEEN ?2 AND ?3 GROUP BY staff_id", nativeQuery = true)
     CheckInOut checkCheckInLeaveOther(Integer staff_id, Date from_date, Date to_date);
 

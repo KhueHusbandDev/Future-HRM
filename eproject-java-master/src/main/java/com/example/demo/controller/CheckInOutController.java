@@ -74,7 +74,15 @@ public class CheckInOutController {
 
     @PostMapping(path = "/check-check-in")
     public ResponseEntity<Object> checkCheckIn(@RequestBody HashMap<String, Object> body) {
-        int type = service.checkCheckIn2(Integer.parseInt(body.get("staff_id").toString()), body.get("check_in_day").toString());
-        return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request Success", type);
+        System.out.println("check check in");
+        CheckInOut result = service.checkCheckIn2(Integer.parseInt(body.get("staff_id").toString()), body.get("check_in_day").toString());
+        return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request Success", result);
+    }
+
+    @PostMapping(path = "/check-check-out")
+    public ResponseEntity<Object> checkCheckOut(@RequestBody HashMap<String, Object> body) {
+        System.out.println("check check out");
+        CheckInOut result = service.checkCheckOut(Integer.parseInt(body.get("staff_id").toString()), body.get("check_in_day").toString());
+        return ResponseHandler.generateResponse(HttpStatus.OK, true, "Request Success", result);
     }
 }

@@ -166,6 +166,7 @@ public class StaffController {
             if (files.length != 3) {
                 return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, false, "Three files are required", null);
             }
+            staff.setPassword(getMD5Hash(staff.getPassword()));
             staff.setPhoto(uploadFile(files[0]));
             staff.setIdPhoto(uploadFile(files[1]));
             staff.setIdPhotoBack(uploadFile(files[2]));

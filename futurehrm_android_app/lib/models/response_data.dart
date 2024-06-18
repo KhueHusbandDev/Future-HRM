@@ -1,5 +1,5 @@
 class ResponseData {
-  Map<String, dynamic>? data;
+  dynamic data;
   String? message;
   int? status;
   bool? isSuccess = false;

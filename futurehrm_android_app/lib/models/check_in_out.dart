@@ -40,8 +40,8 @@ class CheckInOut extends HiveObject {
       id: json['id'],
       staffId: json['staffId'],
       staffCode: json['staffCode'],
-      checkInDay: DateTime.parse(json['checkInDay']),
-      checkInAt: DateTime.parse(json['checkInAt']),
+      checkInDay: DateTime.fromMillisecondsSinceEpoch(json['checkInDay']),
+      checkInAt: DateTime.fromMillisecondsSinceEpoch(json['checkInAt']),
       type: json['type'],
       image: json['image'],
     );

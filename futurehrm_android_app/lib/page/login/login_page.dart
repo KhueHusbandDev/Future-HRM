@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:futurehrm_android_app/models/ApiService.dart';
-import 'package:futurehrm_android_app/models/response_data.dart';
 import 'package:futurehrm_android_app/models/route_paths.dart';
-import 'package:futurehrm_android_app/models/server_connector.dart';
 import 'package:futurehrm_android_app/models/staff.dart';
 import 'package:hive/hive.dart';
 
@@ -35,7 +31,6 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     try {
-      String url = '${ServerConnector.baseUrl}/staff/login/$email/$password';
       var response = await ApiService.get("staff/login/$email/$password");
       print("Login Success 1");
       if (response.status == 200) {
@@ -71,11 +66,11 @@ class _LoginPageState extends State<LoginPage> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 10,
+                  height: 100,
                 ),
                 Image.asset(
                   "assets/images/Logo.jpg",
@@ -158,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                               backgroundColor: Colors.orange,
                             ),
                             onPressed: () {
-                              _login("dthung6604@gmail.com", "123456");
+                              _login("dthung6604@gmail.com", "123");
                               // if (_formKey.currentState!.validate()) {
                               //   _login(_emailController.text,
                               //       _passwordController.text);
