@@ -12,7 +12,7 @@ import { Notifications } from "../pages/employee/Notifications";
 import MainLayout from "../pages/layout/MainLayout";
 import { PayrollBody } from "../pages/payroll/PayrollBody";
 
-export const routesadar = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
     element: (
