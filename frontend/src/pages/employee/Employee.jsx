@@ -23,11 +23,13 @@ export const Employee = () => {
     },
   ]);
 
+ 
   const breads = items.map((item, index) => (
     <Anchor href={item.href} key={index}>
       {item.title}
     </Anchor>
   ));
+
 
   return (
     <div className="w-full h-full flex flex-col flex-nowrap gap-8">

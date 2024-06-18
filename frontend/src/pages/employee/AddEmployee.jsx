@@ -63,18 +63,6 @@ export const AddEmployee = () => {
             >
               Professional Information
             </TabsTab>
-            <TabsTab
-              value="documents"
-              leftSection={<IconFileDescription size={24} />}
-            >
-              Documents
-            </TabsTab>
-            <TabsTab
-              value="account_access"
-              leftSection={<IconLock size={24} />}
-            >
-              Account Access
-            </TabsTab>
           </TabsList>
 
           <TabsPanel value="personal_information">
@@ -83,8 +71,6 @@ export const AddEmployee = () => {
           <TabsPanel value="pro_information">
             <AddProfessionalInfo />
           </TabsPanel>
-          <TabsPanel value="documents">Settings tab content</TabsPanel>
-          <TabsPanel value="account_access">Settings tab content</TabsPanel>
         </Tabs>
       </form>
     </FormProvider>

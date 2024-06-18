@@ -21,7 +21,7 @@ const MainLayout = () => {
         <Header onOpenNavBar={toggleNavBar} isNavBarOpen={opened} />
       </AppShell.Header>
       <AppShell.Navbar p="md">
-        <Nav />
+        {token ? <Nav /> : <h2>Login to navigate</h2>}
       </AppShell.Navbar>
       <AppShell.Main className="overflow-scroll w-[100vw] h-[100vh]">
         {token ? <Outlet /> : <h2>You need to login</h2>}

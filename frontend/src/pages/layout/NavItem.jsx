@@ -10,45 +10,78 @@ import {
   IconCircleLetterC,
 } from "@tabler/icons-react";
 
-export const navItems = [
+export const adminNavItems = [
   {
     label: "Dashboard",
-    ref: "/dashboard",
+    ref: "dashboard",
     icon: <IconDashboard size={24} />,
   },
   {
     label: "All Employees",
-    ref: "/employee",
+    ref: "employee",
     icon: <IconUsersGroup size={24} />,
   },
   {
     label: "All department",
-    ref: "/department",
+    ref: "department",
     icon: <IconAB2 size={24} />,
   },
   {
     label: "Attendance",
-    ref: "/attendance",
+    ref: "attendance",
     icon: <IconBrowserCheck size={24} />,
   },
   {
     label: "Contracts",
-    ref: "/contracts",
+    ref: "contracts",
     icon: <IconCircleLetterC size={24} />,
   },
   {
     label: "Payroll",
-    ref: "/payroll",
+    ref: "payroll",
     icon: <IconCoin size={24} />,
   },
   {
     label: "Leaves",
-    ref: "/leaves",
+    ref: "leaves",
     icon: <IconList size={24} />,
   },
   {
     label: "Holidays",
-    ref: "/holidays",
+    ref: "holidays",
+    icon: <IconPlaneDeparture size={24} />,
+  },
+];
+
+export const staffNavItems = [
+  {
+    label: "Dashboard",
+    ref: "dashboard",
+    icon: <IconDashboard size={24} />,
+  },
+  {
+    label: "Attendance",
+    ref: "attendance",
+    icon: <IconBrowserCheck size={24} />,
+  },
+  {
+    label: "Contracts",
+    ref: "contracts",
+    icon: <IconCircleLetterC size={24} />,
+  },
+  {
+    label: "Payroll",
+    ref: "payroll",
+    icon: <IconCoin size={24} />,
+  },
+  {
+    label: "Leaves",
+    ref: "leaves",
+    icon: <IconList size={24} />,
+  },
+  {
+    label: "Holidays",
+    ref: "holidays",
     icon: <IconPlaneDeparture size={24} />,
   },
 ];
